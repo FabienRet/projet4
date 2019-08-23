@@ -43,9 +43,7 @@ Class ConnexionDAO extends Database{
         $varPass = 0;
         $tableauTest = 'SELECT password FROM membres WHERE pseudo = ?';
         $donnees = $this->sql($tableauTest, [$pseudo]);
-        var_dump($donnees);
         while($testPass = $donnees->fetch()){
-            var_dump($testPass);
             if($pass == $testPass['password']){
                 $varPass = 1;
             }
