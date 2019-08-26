@@ -83,6 +83,7 @@ class FrontController
             if(!empty($post['pseudo']) && !empty($post['pass'])){
                 if($this->connexion->testPseudo($post['pseudo']) == 1){
                     if($this->connexion->checkPass($post['pseudo'], $post['pass']) == 1){
+                        $this->connexion->createSession($post['pseudo']);
                         header('Location: ../public/index.php');
                     }else{
                      $alert = 'Mot de passe inconnu';
@@ -125,5 +126,8 @@ class FrontController
         require'../templates/inscription.php';  
         }
     }
-
+    public function logout(){
+        session_destroy();
+        header('Location: ../public/index.php');
+    }
 }

@@ -50,5 +50,13 @@ Class ConnexionDAO extends Database{
         }
         return $varPass;
     }
+    public function createSession($pseudo){
+        $_SESSION['pseudo'] = $pseudo;
+        $tableauTest = 'SELECT id_groupe FROM membres WHERE pseudo = ?';
+        $donnees = $this->sql($tableauTest, [$pseudo]);
+        $idSession = $donnees->fetch();
+        $_SESSION['id']= $idSession['id_groupe'];
+        var_dump($_SESSION);
+    }
 
 }

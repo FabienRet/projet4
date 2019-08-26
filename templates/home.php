@@ -11,7 +11,12 @@
         <!--<h1>Mon super blog !</h1>-->
         <img  class = "image" src="../public/fonts/banniere2.jpg">
         <p>Derniers billets du blog :</p>
- 
+        <?php
+        var_dump($_SESSION);
+        if (!empty($_SESSION['pseudo'])){
+            echo ('Bonjour '. $_SESSION['pseudo']);
+        }
+        ?>
         
 
 <div class="news">
@@ -36,5 +41,6 @@
 <a href="index.php?route=add_article">Ajouter un nouvel article</a>
       <a href='../templates/inscription.php'>Inscription</a>
       <a href="../templates/login.php">Connection</a>
+        <a href="index.php?route=logout">Déconnection</a>
 </body>
 </html>

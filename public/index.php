@@ -8,6 +8,6 @@ use App\config\router;
 
 $autoloader = new Autoloader();
 $autoloader->register();
-
+session_start();
 $router = new Router();
 $router->run();

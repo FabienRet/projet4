@@ -49,6 +49,9 @@ class Router{
                 else if ($_GET['route'] == 'login'){
                   $this->frontController->login($_POST);
                 }
+                else if ($_GET['route'] == 'logout'){
+                    $this->frontController->logout();
+                }
                 else{
 				echo 'Autre page !';
 			}
