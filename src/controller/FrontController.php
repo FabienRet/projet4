@@ -97,8 +97,8 @@ class FrontController
         }
             if (!empty($alert)){
                 echo "<script>alert('$alert')</script>";
-                require '../templates/login.php';
             }
+            require'../templates/login.php';
     }
     public function inscription($post){
         if(isset($post) && !empty($post)){
@@ -123,8 +123,9 @@ class FrontController
             }
         if (!empty($alert)){
         echo "<script>alert('$alert') </script>";
-        require'../templates/inscription.php';  
+
         }
+        require '../templates/inscription.php';
     }
     public function logout(){
         session_destroy();
