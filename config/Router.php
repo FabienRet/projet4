@@ -19,6 +19,9 @@ class Router{
 				if($_GET['route'] == 'add_article'){
 					$this->frontController->addArticle($_POST);
 				}
+				else if($_GET['route']== 'single'){
+                    $this->frontController->article($_GET['articleId']);
+                }
 				else if($_GET['route'] == 'delete_article'){
 				    $this->frontController->deleteArticle($_GET['article']);
                 }
@@ -51,6 +54,9 @@ class Router{
                 }
                 else if ($_GET['route'] == 'logout'){
                     $this->frontController->logout();
+                }
+                else if ($_GET['route'] == 'admin'){
+                    $this->frontController->admin();
                 }
                 else{
 				echo 'Autre page !';

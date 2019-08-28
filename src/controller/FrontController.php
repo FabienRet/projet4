@@ -6,6 +6,7 @@ namespace App\src\controller;
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
 use App\src\DAO\ConnexionDAO;
+use App\src\model\View;
 
 class FrontController
 {
@@ -13,17 +14,29 @@ class FrontController
     private $article;
     private $comment;
     private $connexion;
+    private $view;
 
     public function __construct()
     {
         $this->article = new ArticleDAO();
         $this->comment = new CommentDAO();
         $this->connexion = new ConnexionDAO();
+        $this->view = new View();
     }
 
     public function home(){
-        $result = $this->article->getArticles();
-        require '../templates/home.php';
+        $articles = $this->article->getArticles();
+        return $this->view->render('home', ['articles' => $articles]);
+    }
+    public function admin(){
+        $articles = $this->article->getArticles();
+        return $this->view->render('admin', ['articles' => $articles]);
+        }
+
+    public function article($articleId){
+        $article = $this->article->getArticle($articleId);
+        $comments = $this->comment->getComment($articleId);
+        return $this->view->render('single', ['article' => $article, 'comments' => $comments]);
     }
 
     public function getComment($idArticle){
@@ -55,7 +68,7 @@ class FrontController
             $this->comment->addComment($idArticle, $post['pseudo'], $post['message']);
             header('Location: ../public/index.php?route=comment&article='.$_GET["article"].'');
         }
-    require '../templates/comment_add.php?article=';
+        require '../templates/comment_add.php?article=';
     }
 
     public function getArticle($idArticle){
@@ -86,19 +99,19 @@ class FrontController
                         $this->connexion->createSession($post['pseudo']);
                         header('Location: ../public/index.php');
                     }else{
-                     $alert = 'Mot de passe inconnu';
-                }
-            }else{
+                        $alert = 'Mot de passe inconnu';
+                    }
+                }else{
                     $alert = 'Pseudo inconnu';
                 }
             }else{
                 $alert = 'Merci de remplir tous les champs';
             }
         }
-            if (!empty($alert)){
-                echo "<script>alert('$alert')</script>";
-            }
-            require'../templates/login.php';
+        if (!empty($alert)){
+            echo "<script>alert('$alert')</script>";
+        }
+        require'../templates/login.php';
     }
     public function inscription($post){
         if(isset($post) && !empty($post)){
@@ -111,18 +124,18 @@ class FrontController
                         }else{
                             $alert = 'Cet email est déjà utilisé';
                         }
-                        }else{
-                            $alert= "Les mots de passe ne correspondent pas !";
-                        }
                     }else{
-                        $alert = "Ce pseudo est déjà utilisé !";
+                        $alert= "Les mots de passe ne correspondent pas !";
                     }
                 }else{
-                    $alert = 'Merci de remplir tous les champs !';
+                    $alert = "Ce pseudo est déjà utilisé !";
                 }
+            }else{
+                $alert = 'Merci de remplir tous les champs !';
             }
+        }
         if (!empty($alert)){
-        echo "<script>alert('$alert') </script>";
+            echo "<script>alert('$alert') </script>";
 
         }
         require '../templates/inscription.php';
