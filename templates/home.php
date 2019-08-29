@@ -22,7 +22,13 @@ if (!empty($_SESSION['pseudo'])){
             echo nl2br(htmlspecialchars($donnees['contenu']));
             ?>
             <br />
-            <em><a href="../public/index.php?route=comment&article=<?php echo $donnees['ID']; ?>">Commentaires</a><a href="../public/index.php?route=get_article&article=<?php echo $donnees['ID']; ?>">Modifier</a><a href="../public/index.php?route=delete_article&article=<?php echo $donnees['ID']; ?>">Supprimer</a></em>
+            <?php
+            if(!empty($_SESSION)){
+                if(($_SESSION['id']) == 1 || ($_SESSION['id'] == 2)){
+                    echo '<em><a href="../public/index.php?route=comment&article='. $donnees['ID'].'">Commentaires</a></em>';
+                }
+            }
+            ?>
         </p>
     <?php endforeach; ?>
 </div>

@@ -5,9 +5,7 @@
 <div class="news">
     <?php
     foreach ($articles as $donnees):;?>
-        <h3>
-            <?php echo htmlspecialchars($donnees['titre']); ?>
-        </h3>
+        <h3><a href="../public/index.php?route=single&articleId=<?= htmlspecialchars($donnees['ID']);?>"><?= htmlspecialchars($donnees['titre']);?></a></h3>
 
         <p>
             <?php

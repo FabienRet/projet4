@@ -31,7 +31,7 @@
     <?php endforeach; ?>
 </div>
 
-      <a href='../templates/inscription.php'>Inscription</a>
+      <a href='register.php'>Inscription</a>
       <a href="index.php?route=login">Connection</a>
 </body>
 </html>

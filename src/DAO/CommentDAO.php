@@ -10,9 +10,9 @@ Class CommentDAO extends Database
         return $result;
     }
 
-    public function addComment($idArticle, $titre, $mess){
+    public function addComment($idArticle, $mess){
         $sql ='INSERT INTO commentaires(id_billet, auteur, commentaire, date_commentaire) VALUES (?, ?, ?, NOW())';
-        $result = $this->sql($sql, [$idArticle, $titre, $mess]);
+        $result = $this->sql($sql, [$idArticle, $_SESSION['pseudo'], $mess]);
         return $result;
     }
 

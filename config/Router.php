@@ -46,8 +46,8 @@ class Router{
                 else if($_GET['route'] == 'update_comment'){
                     $this->frontController->updatecomment($_GET['ID_comment'], $_POST);
                 }
-              	else if($_GET['route'] == 'inscription'){
-                  $this->frontController->inscription($_POST);
+              	else if($_GET['route'] == 'register'){
+                  $this->frontController->register($_POST);
                 }
                 else if ($_GET['route'] == 'login'){
                   $this->frontController->login($_POST);

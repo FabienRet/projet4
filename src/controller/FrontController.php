@@ -5,7 +5,7 @@ namespace App\src\controller;
 
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
-use App\src\DAO\ConnexionDAO;
+use App\src\DAO\ConnectionDAO;
 use App\src\model\View;
 
 class FrontController
@@ -20,7 +20,7 @@ class FrontController
     {
         $this->article = new ArticleDAO();
         $this->comment = new CommentDAO();
-        $this->connexion = new ConnexionDAO();
+        $this->connexion = new ConnectionDAO();
         $this->view = new View();
     }
 
@@ -42,8 +42,8 @@ class FrontController
     public function getComment($idArticle){
         $art = $this->article->getArticle($idArticle);
         $result = $this->comment->getComment($idArticle);
-        require '../templates/comment.php';
-    }
+        return $this->view->render('comment', ['article' => $art, 'comments' => $result]);
+        }
 
     public function addArticle($post) {
         if(isset($post) && !empty($post)){
@@ -65,7 +65,7 @@ class FrontController
 
     public function addComment($idArticle, $post){
         if(isset($post) && !empty($post)){
-            $this->comment->addComment($idArticle, $post['pseudo'], $post['message']);
+            $this->comment->addComment($idArticle, $post['message']);
             header('Location: ../public/index.php?route=comment&article='.$_GET["article"].'');
         }
         require '../templates/comment_add.php?article=';
@@ -113,13 +113,13 @@ class FrontController
         }
         require'../templates/login.php';
     }
-    public function inscription($post){
+    public function register($post){
         if(isset($post) && !empty($post)){
             if(!empty($post['pseudo']) && !empty($post['pass']) && !empty($post['checkpass']) && !empty($post['email'])){
                 if($this->connexion->testPseudo($post['pseudo']) == 0) {
                     if($this->connexion->testPass($post['pass'], $post['checkpass']) == 0) {
                         if($this->connexion->testEmail($post['email']) == 0){
-                            $this->connexion->connexion($post['pseudo'], $post['pass'], $post['email']);
+                            $this->connexion->connection($post['pseudo'], $post['pass'], $post['email']);
                             header('Location: ../public/index.php');
                         }else{
                             $alert = 'Cet email est déjà utilisé';
@@ -138,7 +138,7 @@ class FrontController
             echo "<script>alert('$alert') </script>";
 
         }
-        require '../templates/inscription.php';
+        require '../templates/register.php';
     }
     public function logout(){
         session_destroy();
