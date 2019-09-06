@@ -5,30 +5,30 @@ namespace App\src\DAO;
 Class CommentDAO extends Database
 {
     public function getComment($idArticle){
-        $sql = 'SELECT ID, auteur, commentaire, DATE_FORMAT(date_commentaire, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr FROM commentaires WHERE id_billet = ? ORDER BY date_commentaire';
+        $sql = 'SELECT id, name, content, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at FROM comment WHERE id_article = ? ORDER BY created_at';
         $result = $this->sql($sql, [$idArticle]);
         return $result;
     }
 
     public function addComment($idArticle, $mess){
-        $sql ='INSERT INTO commentaires(id_billet, auteur, commentaire, date_commentaire) VALUES (?, ?, ?, NOW())';
-        $result = $this->sql($sql, [$idArticle, $_SESSION['pseudo'], $mess]);
+        $sql ='INSERT INTO comment(id_article, name, content, created_at) VALUES (?, ?, ?, NOW())';
+        $result = $this->sql($sql, [$idArticle, $_SESSION['name'], $mess]);
         return $result;
     }
 
     public function deleteComment($idComment){
-        $sql = 'DELETE FROM commentaires WHERE ID=?';
+        $sql = 'DELETE FROM comment WHERE id=?';
         $result = $this->sql($sql, [$idComment]);
         return $result;
     }
     public function comment ($idComment){
-        $sql = 'SELECT auteur, commentaire FROM commentaires WHERE ID = ?';
+        $sql = 'SELECT name, content FROM comment WHERE id = ?';
         $result = $this->sql($sql, [$idComment]);
         return $result;
     }
-    public function updateComment ($idComment, $auteurComment, $textComment){
-        $sql = "UPDATE commentaires SET auteur = ?, commentaire = ? WHERE ID = ?";
-        $result = $this->sql($sql, [$auteurComment, $textComment, $idComment]);
+    public function updateComment ($idComment, $textComment){
+        $sql = "UPDATE comment SET name = ?, content = ? WHERE id = ?";
+        $result = $this->sql($sql, [$_SESSION['name'], $textComment, $idComment]);
         return $result;
     }
 }

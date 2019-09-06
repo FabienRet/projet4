@@ -58,6 +58,9 @@ class Router{
                 else if ($_GET['route'] == 'admin'){
                     $this->frontController->admin();
                 }
+                else if($_GET['route'] == 'member'){
+                    $this->frontController->member($_SESSION['name']);
+                }
                 else{
 				echo 'Autre page !';
 			}

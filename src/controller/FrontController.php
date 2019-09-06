@@ -3,46 +3,37 @@
 namespace App\src\controller;
 
 
-use App\src\DAO\ArticleDAO;
-use App\src\DAO\CommentDAO;
-use App\src\DAO\ConnectionDAO;
-use App\src\model\View;
 
-class FrontController
+class FrontController extends Controller
 {
 
-    private $article;
-    private $comment;
-    private $connexion;
-    private $view;
 
-    public function __construct()
-    {
-        $this->article = new ArticleDAO();
-        $this->comment = new CommentDAO();
-        $this->connexion = new ConnectionDAO();
-        $this->view = new View();
-    }
 
     public function home(){
         $articles = $this->article->getArticles();
-        return $this->view->render('home', ['articles' => $articles]);
+        echo $this->twig->render('home.html.twig', ['articles' => $articles]);
     }
     public function admin(){
         $articles = $this->article->getArticles();
         return $this->view->render('admin', ['articles' => $articles]);
         }
 
+    public function member($name){
+        $session = $this->connexion->infoTab($name);
+        var_dump($session);
+        return $this->view->render('member', ['session' => $session]);
+    }
+
     public function article($articleId){
         $article = $this->article->getArticle($articleId);
         $comments = $this->comment->getComment($articleId);
-        return $this->view->render('single', ['article' => $article, 'comments' => $comments]);
+        echo $this->twig->render('single.html.twig', ['article' => $article, 'comment' => $comments]);
     }
 
     public function getComment($idArticle){
-        $art = $this->article->getArticle($idArticle);
-        $result = $this->comment->getComment($idArticle);
-        return $this->view->render('comment', ['article' => $art, 'comments' => $result]);
+        $article = $this->article->getArticle($idArticle);
+        $comment = $this->comment->getComment($idArticle);
+        echo $this->twig->render('comment.html.twig', ['article' => $article, 'comment' => $comment]);
         }
 
     public function addArticle($post) {
@@ -68,7 +59,6 @@ class FrontController
             $this->comment->addComment($idArticle, $post['message']);
             header('Location: ../public/index.php?route=comment&article='.$_GET["article"].'');
         }
-        require '../templates/comment_add.php?article=';
     }
 
     public function getArticle($idArticle){
@@ -82,19 +72,19 @@ class FrontController
         }
     }
     public function comment($idComment){
-        $result = $this->comment->comment($idComment);
-        require '../templates/comment_update.php';
+        $comment = $this->comment->comment($idComment);
+        echo $this->twig->render('comment_update.html.twig', ['comment' => $comment]);
     }
     public function updateComment($idComment, $post){
         if(isset($post) && !empty($post)) {
-            $this->comment->updateComment($idComment, $post['auteur'], $post['commentaire']);
+            $this->comment->updateComment($idComment, $post['content']);
             header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
         }
     }
     public function login($post){
         if(isset($post) && !empty($post)){
             if(!empty($post['pseudo']) && !empty($post['pass'])){
-                if($this->connexion->testPseudo($post['pseudo']) == 1){
+                if($this->connexion->testName($post['pseudo']) == 1){
                     if($this->connexion->checkPass($post['pseudo'], $post['pass']) == 1){
                         $this->connexion->createSession($post['pseudo']);
                         header('Location: ../public/index.php');
@@ -140,6 +130,7 @@ class FrontController
         }
         require '../templates/register.php';
     }
+
     public function logout(){
         session_destroy();
         header('Location: ../public/index.php');

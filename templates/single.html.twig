@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+{% block content %}
+    <div class="text-left">
+        {% for data in article %}
+        <h2>{{ data.title }}</h2>
+        <p>{{ data.content }}</p>
+        {% endfor %}
+    </div>
+    <h3>Commentaires</h3>
+    {% for data in comment %}
+
+        <h3>{{ data.name ~ ' le ' ~ data.created_at }} </h3>
+        <p>{{ data.content }}</p>
+        {% if app.session.name == data.name or app.session.id == 2 %}
+            <a href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
+            <a href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
+        {% endif %}
+    {% endfor %}
+    </br><a href="../public/index.php">Retour à l'accueil</a>
+{% endblock %}

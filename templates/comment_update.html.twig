@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier votre commentaire{% endblock %}
+{% block content %}
+    <div class="news">
+        <p>Modifier votre commentaire :</p>
+        {{ dump(app.get) }}
+        {% for data in comment %}
+            <form method="post" action="../public/index.php?route=update_comment&ID_article={{ app.get.ID_article }}&ID_comment={{ app.get.ID_comment }}" class="newComments">
+                <p>
+                    <label for="message">Message</label> :  <input type="text" name="content" id="commentaire" value="{{ data.content }}" /><br />
+
+                    <input type="submit" value="Envoyer" />
+                </p>
+            </form>
+        {% endfor %}
+    </div>
+{% endblock %}

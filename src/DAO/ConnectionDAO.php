@@ -3,21 +3,21 @@
 namespace App\src\DAO;
 
 Class ConnectionDAO extends Database{
-    public function connection($pseudo, $pass, $mail){
-        $sql = 'INSERT INTO membres(pseudo, password, email, date_inscription, id_groupe) VALUES (?, ?, ?, NOW(), 1)';
-        $result = $this->sql($sql, [$pseudo, $pass, $mail]);
+    public function connection($name, $pass, $mail){
+        $sql = 'INSERT INTO user(name, password, email, created_at, id_group) VALUES (?, ?, ?, NOW(), 1)';
+        $result = $this->sql($sql, [$name, $pass, $mail]);
         return $result;
     }
-    public function testPseudo($pseudo){
-        $varPseudo = 0;
-        $tableauTest = 'SELECT pseudo FROM membres';
+    public function testName($name){
+        $varname = 0;
+        $tableauTest = 'SELECT name FROM user';
         $donnees = $this->sql($tableauTest);
         while ($test = $donnees->fetch()){
-            if($pseudo == $test['pseudo']){
-                $varPseudo = 1;
+            if($name == $test['name']){
+                $varname = 1;
             }
         }
-        return $varPseudo;
+        return $varname;
     }
     public function testPass($pass, $testPass){
         if($pass == $testPass){
@@ -29,7 +29,7 @@ Class ConnectionDAO extends Database{
 
     public function testEmail($email){
         $varEmail = 0;
-        $tableauTest = 'SELECT email FROM membres';
+        $tableauTest = 'SELECT email FROM user';
         $donnees = $this->sql($tableauTest);
         while($test = $donnees->fetch()){
             if ($email == $test['email']){
@@ -39,10 +39,10 @@ Class ConnectionDAO extends Database{
         return $varEmail;
     }
 
-    public function checkPass($pseudo, $pass){
+    public function checkPass($name, $pass){
         $varPass = 0;
-        $tableauTest = 'SELECT password FROM membres WHERE pseudo = ?';
-        $donnees = $this->sql($tableauTest, [$pseudo]);
+        $tableauTest = 'SELECT password FROM user WHERE name = ?';
+        $donnees = $this->sql($tableauTest, [$name]);
         while($testPass = $donnees->fetch()){
             if($pass == $testPass['password']){
                 $varPass = 1;
@@ -50,13 +50,27 @@ Class ConnectionDAO extends Database{
         }
         return $varPass;
     }
-    public function createSession($pseudo){
-        $_SESSION['pseudo'] = $pseudo;
-        $tableauTest = 'SELECT id_groupe FROM membres WHERE pseudo = ?';
-        $donnees = $this->sql($tableauTest, [$pseudo]);
+    public function createSession($name){
+        $_SESSION['name'] = $name;
+        $tableauTest = 'SELECT id_group FROM user WHERE name = ?';
+        $donnees = $this->sql($tableauTest, [$name]);
         $idSession = $donnees->fetch();
-        $_SESSION['id']= $idSession['id_groupe'];
+        $_SESSION['id']= $idSession['id_group'];
         var_dump($_SESSION);
     }
 
+    public function memberArea($name){
+        $tableauInfo = 'SELECT email FROM user WHERE pseudo = ?';
+        $data = $this->sql($tableauInfo, [$name]);
+        $mail = $data->fetch();
+
+    }
+
+    public function infoTab($name){
+        $tableauTest = 'SELECT email created_at FROM user WHERE name = ?';
+        $donnees = $this->sql($tableauTest, [$name]);
+        $idSession = $donnees->fetch();
+        $_SESSION['email'] = $idSession['email'];
+        $_SESSION['created_at'] = $idSession['created_at'];
+    }
 }

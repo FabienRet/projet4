@@ -5,35 +5,35 @@ class ArticleDAO extends Database
 {
     public function getArticles()
     {
-        $sql = 'SELECT ID, titre, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT 0, 5';
+        $sql = 'SELECT id, title, content, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr FROM article ORDER BY created_at DESC LIMIT 0, 5';
         $result = $this->sql($sql);
         return $result;
     }
 
     public function getArticle($idArt)
     {
-        $sql = 'SELECT ID, titre, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets WHERE ID = ?';
+        $sql = 'SELECT id, title, content, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr FROM article WHERE id = ?';
         $result = $this->sql($sql, [$idArt]);
         return $result;
     }
 
     public function deleteArticle($idArt)
     {
-        $sql = 'DELETE FROM billets WHERE ID=?';
+        $sql = 'DELETE FROM article WHERE id=?';
         $result = $this->sql($sql, [$idArt]);
         return $result;
     }
 
-    public function addArticle($titreArt, $articleArt)
+    public function addArticle($titleArt, $articleArt)
     {
-        $sql = 'INSERT INTO billets(titre, contenu, date_creation) VALUES (?, ?, NOW())';
-        $result = $this->sql($sql, [$titreArt, $articleArt]);
+        $sql = 'INSERT INTO article(title, content, created_at) VALUES (?, ?, NOW())';
+        $result = $this->sql($sql, [$titleArt, $articleArt]);
         return $result;
     }
 
-    public function updateArticle($titreArt, $articleArt, $idArt){
-        $sql = "UPDATE billets SET titre = ?, contenu = ? WHERE ID = ?";
-        $result = $this->sql($sql, [$titreArt, $articleArt, $idArt]);
+    public function updateArticle($titleArt, $articleArt, $idArt){
+        $sql = "UPDATE article SET title = ?, content = ? WHERE id = ?";
+        $result = $this->sql($sql, [$titleArt, $articleArt, $idArt]);
         return $result;
     }
 }

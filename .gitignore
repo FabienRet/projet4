@@ -1,2 +1,3 @@
 /config/prod.php
-.idea
+.idea/
+/vendor/
