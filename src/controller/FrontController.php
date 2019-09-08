@@ -15,13 +15,12 @@ class FrontController extends Controller
     }
     public function admin(){
         $articles = $this->article->getArticles();
-        return $this->view->render('admin', ['articles' => $articles]);
+        echo $this->twig->render('admin.html.twig', ['articles' => $articles]);
         }
 
     public function member($name){
-        $session = $this->connexion->infoTab($name);
-        var_dump($session);
-        return $this->view->render('member', ['session' => $session]);
+        $session = $this->connection->infoTab($name);
+        echo $this->twig->render('member.html.twig', ['session' => $session]);
     }
 
     public function article($articleId){
@@ -41,7 +40,7 @@ class FrontController extends Controller
             $this->article->addArticle($post['titre'], $post['article']);
             header ('Location: ../public/index.php');
         }
-        require '../templates/articles_add.php';
+        echo $this->twig->render('article_add.html.twig');
     }
 
     public function deleteArticle($idArticle){
@@ -63,7 +62,7 @@ class FrontController extends Controller
 
     public function getArticle($idArticle){
         $result = $this->article->getArticle($idArticle);
-        require '../templates/articles_update.php';
+        echo $this->twig->render('article_update.html.twig', ['result' => $result]);
     }
     public function updateArticle($idArticle, $post){
         if(isset($post) && !empty($post)) {
@@ -77,16 +76,16 @@ class FrontController extends Controller
     }
     public function updateComment($idComment, $post){
         if(isset($post) && !empty($post)) {
-            $this->comment->updateComment($idComment, $post['content']);
+            $this->comment->updateComment($idComment, $post['name'], $post['content']);
             header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
         }
     }
     public function login($post){
         if(isset($post) && !empty($post)){
             if(!empty($post['pseudo']) && !empty($post['pass'])){
-                if($this->connexion->testName($post['pseudo']) == 1){
-                    if($this->connexion->checkPass($post['pseudo'], $post['pass']) == 1){
-                        $this->connexion->createSession($post['pseudo']);
+                if($this->connection->testName($post['pseudo']) == 1){
+                    if($this->connection->checkPass($post['pseudo'], $post['pass']) == 1){
+                        $this->connection->createSession($post['pseudo']);
                         header('Location: ../public/index.php');
                     }else{
                         $alert = 'Mot de passe inconnu';
@@ -101,15 +100,15 @@ class FrontController extends Controller
         if (!empty($alert)){
             echo "<script>alert('$alert')</script>";
         }
-        require'../templates/login.php';
+        echo $this->twig->render('login.html.twig');
     }
     public function register($post){
         if(isset($post) && !empty($post)){
             if(!empty($post['pseudo']) && !empty($post['pass']) && !empty($post['checkpass']) && !empty($post['email'])){
-                if($this->connexion->testPseudo($post['pseudo']) == 0) {
-                    if($this->connexion->testPass($post['pass'], $post['checkpass']) == 0) {
-                        if($this->connexion->testEmail($post['email']) == 0){
-                            $this->connexion->connection($post['pseudo'], $post['pass'], $post['email']);
+                if($this->connection->testName($post['pseudo']) == 0) {
+                    if($this->connection->testPass($post['pass'], $post['checkpass']) == 0) {
+                        if($this->connection->testEmail($post['email']) == 0){
+                            $this->connection->connection($post['pseudo'], $post['pass'], $post['email']);
                             header('Location: ../public/index.php');
                         }else{
                             $alert = 'Cet email est déjà utilisé';
@@ -128,7 +127,7 @@ class FrontController extends Controller
             echo "<script>alert('$alert') </script>";
 
         }
-        require '../templates/register.php';
+        echo $this->twig->render('register.html.twig');
     }
 
     public function logout(){

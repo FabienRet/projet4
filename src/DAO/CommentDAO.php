@@ -26,9 +26,9 @@ Class CommentDAO extends Database
         $result = $this->sql($sql, [$idComment]);
         return $result;
     }
-    public function updateComment ($idComment, $textComment){
+    public function updateComment ($idComment, $nameComment, $textComment){
         $sql = "UPDATE comment SET name = ?, content = ? WHERE id = ?";
-        $result = $this->sql($sql, [$_SESSION['name'], $textComment, $idComment]);
+        $result = $this->sql($sql, [$nameComment, $textComment, $idComment]);
         return $result;
     }
 }

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon espace{% endblock %}
+{% block content %}
+<h1>Mon espace membre</h1>
+
+
+BTN mes données</br>
+pseudo</br>
+mail</br>
+date création</br>
+modifier les donnees</br>
+En construction
+
+
+<ul>
+    <li>Pseudo : {{ app.session.name }}</li>
+    <li>Email : {{ app.session.email }}</li>
+    <li>Création du compte : {{ app.session.created_at }}</li>
+</ul>
+{% endblock %}

@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Inscription</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
 
+{% block title %}Inscription{% endblock %}
+{% block content %}
     <form method="post" action="../public/index.php?route=register" class="newComments">
         <label for="pseudo">Pseudo</label>
         <input type="text" name="pseudo" id="pseudo" />
@@ -21,6 +17,4 @@
 
         <input type="submit" value="Envoyer" />
     </form>
-
-</body>
-</html>
+{% endblock %}

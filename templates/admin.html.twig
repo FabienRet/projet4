@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+{% block content %}
+
+<h1>Administration</h1>
+<p>En construction</p>
+<div class="news">
+    {% for data in articles %}
+    <h3><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h3>
+
+    <p>
+
+        <br />
+        <em><a href="../public/index.php?route=comment&article={{ data.id }}">Commentaires</a><a href="../public/index.php?route=get_article&article={{ data.id }}">Modifier</a><a href="../public/index.php?route=delete_article&article={{ data.id }}">Supprimer</a></em>
+    </p>
+    {% endfor %}
+</div>
+<a href="../public/index.php?route=add_article">Créer un nouvel article</a></br>
+<a href="../public/index.php">Retour à l'accueil</a>
+{% endblock %}

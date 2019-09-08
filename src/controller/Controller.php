@@ -10,14 +10,14 @@ class Controller{
 
     protected $article;
     protected $comment;
-    protected $connexion;
+    protected $connection;
     protected $twig;
 
     public function __construct()
     {
         $this->article = new ArticleDAO();
         $this->comment = new CommentDAO();
-        $this->connexion = new ConnectionDAO();
+        $this->connection = new ConnectionDAO();
         $loader = new FilesystemLoader('../templates');
         $this->twig = new \Twig\Environment($loader, [
             //TODO : activate'cache' => '../var/cache',
