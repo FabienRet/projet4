@@ -19,8 +19,8 @@ class FrontController extends Controller
         }
 
     public function member($name){
-        $session = $this->connection->infoTab($name);
-        echo $this->twig->render('member.html.twig', ['session' => $session]);
+        $info = $this->connection->infoTab($name);
+        echo $this->twig->render('member.html.twig', ['info' => $info]);
     }
 
     public function article($articleId){
@@ -128,6 +128,20 @@ class FrontController extends Controller
 
         }
         echo $this->twig->render('register.html.twig');
+    }
+
+    public function update_member(){
+        $infosMember = $this->connection->infoTab($_SESSION['name']);
+        echo $this->twig->render('member_update.html.twig', ['infoMember' => $infosMember]);
+    }
+     public function update($post){
+         if($this->connection->testPass($post['pass'], $post['checkpass']) == 0) {
+     }
+    }
+
+    public function report($comment){
+        $this->comment->reportComment($comment);
+        header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
     }
 
     public function logout(){

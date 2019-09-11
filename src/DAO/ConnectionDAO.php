@@ -59,18 +59,14 @@ Class ConnectionDAO extends Database{
         var_dump($_SESSION);
     }
 
-    public function memberArea($name){
-        $tableauInfo = 'SELECT email FROM user WHERE pseudo = ?';
-        $data = $this->sql($tableauInfo, [$name]);
-        $mail = $data->fetch();
-
-    }
-
     public function infoTab($name){
-        $tableauTest = 'SELECT email created_at FROM user WHERE name = ?';
+        $tableauTest = 'SELECT email, created_at FROM user WHERE name = ?';
         $donnees = $this->sql($tableauTest, [$name]);
         $idSession = $donnees->fetch();
-        $_SESSION['email'] = $idSession['email'];
-        $_SESSION['created_at'] = $idSession['created_at'];
+        return $idSession;
+    }
+
+    public function updateMember($post){
+
     }
 }

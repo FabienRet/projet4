@@ -31,4 +31,10 @@ Class CommentDAO extends Database
         $result = $this->sql($sql, [$nameComment, $textComment, $idComment]);
         return $result;
     }
+
+    public function reportComment($idComment){
+        $sql = "UPDATE comment SET report = ? WHERE id = ?";
+        $result = $this->sql($sql, [1, $idComment]);
+        return $result;
+    }
 }

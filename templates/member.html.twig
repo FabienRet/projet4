@@ -6,16 +6,16 @@
 
 
 BTN mes données</br>
-pseudo</br>
-mail</br>
-date création</br>
-modifier les donnees</br>
+
 En construction
 
 
 <ul>
     <li>Pseudo : {{ app.session.name }}</li>
-    <li>Email : {{ app.session.email }}</li>
-    <li>Création du compte : {{ app.session.created_at }}</li>
+    <li>Email : {{ info.email }}</li>
+    <li>Création du compte : {{ info.created_at }}</li>
 </ul>
+
+    <a href="../public/index.php?route=update_member">Modifier vos données</a>
+
 {% endblock %}

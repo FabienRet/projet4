@@ -2,6 +2,7 @@
 
 {% block title %}Article{% endblock %}
 {% block content %}
+    {{ parent() }}
     <div class="text-left">
         {% for data in article %}
         <h2>{{ data.title }}</h2>
@@ -18,5 +19,5 @@
             <a href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
         {% endif %}
     {% endfor %}
-    </br><a href="../public/index.php">Retour à l'accueil</a>
+
 {% endblock %}

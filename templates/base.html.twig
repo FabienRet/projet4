@@ -7,7 +7,12 @@
 </head>
 <body>
 <div id="content">
-    {% block content %}{% endblock %}
+    {% block content %}
+        <a href="../public/index.php">Retour à l'accueil</a>{% endblock %}
 </div>
+{% block javascripts %}
+<script> console.log('Hello World !');</script>
+{% endblock %}
+
 </body>
 </html>

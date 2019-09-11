@@ -61,6 +61,15 @@ class Router{
                 else if($_GET['route'] == 'member'){
                     $this->frontController->member($_SESSION['name']);
                 }
+                else if($_GET['route'] == 'update_member'){
+                    $this->frontController->update_member();
+                }
+                else if ($_GET['route'] == 'update'){
+                    $this->frontController->update($_POST);
+                }
+                else if($_GET['route'] == 'report'){
+                    $this->frontController->report($_GET['ID_comment']);
+                }
                 else{
 				echo 'Autre page !';
 			}
@@ -69,6 +78,8 @@ class Router{
 			}
 		}catch (\Exception $e){
 			echo 'Erreur';
+			//TODO : activate errors
+            var_dump($e->getMessage());
 		}
 	}
 }
