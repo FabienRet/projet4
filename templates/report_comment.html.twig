@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+{% block content %}
+    {{ parent() }}
+    {% for data in comment %}
+            <h3>{{ data.name ~ ' le ' ~ data.created_at }} </h3>
+            <p>{{ data.content }}</p>
+        <a href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
+        <a href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
+    {% endfor %}
+{% endblock %}

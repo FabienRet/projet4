@@ -2,37 +2,38 @@
 
 {% block title %}Accueil{% endblock %}
 {% block content %}
-
-    {{ dump(app.session) }}
-    {{ dump (articles) }}
+<div id="contenu">
 <!--<h1>Mon super blog !</h1>-->
-<img  class = "image" src="../public/fonts/banniere2.jpg">
-<p>Derniers billets du blog :</p>
-
+<div class="nav">
+    <p>Accueil</p></br>
     {% if app.session.name %}
         {{ 'Bonjour ' ~ app.session.name }}
     {% endif %}
+</br>
+    <ul>
+    {% if app.session.id %}
+        <li><a href="../public/index.php?route=member">Mon Espace</a></li>
+            {% if app.session.id == 2 %}
+                <li><a href="../public/index.php?route=admin">Administration</a></li>
+            {% endif %}
+        <li><a href="../public/index.php?route=logout">Déconnection</a></li>
+    {% else %}
+        <li><a href="../public/index.php?route=register">Inscription</a></li>
+        <li> <a href="../public/index.php?route=login">Connection</a></li>
+    {% endif %}
+    </ul>
     </br>
+</div>
 <div class="news">
 {% for data in articles %}
-    <h3><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h3>
+    <h2><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
     <p>{{ data.content }}</p>
     {% if app.session.id == 1 or app.session.id == 2 %}
     <em><a href="{{ '../public/index.php?route=comment&article='~data.id}}">Commentaires </a></em>
     {% endif %}
 {% endfor %}
 </div>
-    {% if app.session.id %}
-        {% if app.session.id == 1 %}
-            <a href="../public/index.php?route=member">Mon Espace</a></br>
-        {% else %}
-            {% if app.session.id == 2 %}
-            <a href="../public/index.php?route=admin">Administration</a></br>
-                {% endif %}
-            {% endif %}
-        <a href="../public/index.php?route=logout">Déconnection</a>
-        {% else %}
-            <a href="../public/index.php?route=register">Inscription</a> <a href="../public/index.php?route=login">Connection</a>
-    {% endif %}
+
+</div>
 
 {% endblock %}

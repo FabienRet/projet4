@@ -5,9 +5,16 @@
 
 <h1>Administration</h1>
 <p>En construction</p>
+    <div id="contenu">
+        <ul>
+            <li><a href="../public/index.php?route=add_article">Créer un nouvel article</a></br></li>
+            <li><a href="../public/index.php?route=reportComment">Liste des commentaires signalées</a></li>
+            <li><a href="../public/index.php?route=listUser">Liste des utilisateurs</a></li>
+            <li>{{ parent() }}</li>
+        </ul>
 <div class="news">
     {% for data in articles %}
-    <h3><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h3>
+    <h2><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
 
     <p>
 
@@ -16,6 +23,5 @@
     </p>
     {% endfor %}
 </div>
-<a href="../public/index.php?route=add_article">Créer un nouvel article</a></br>
-
+</div>
 {% endblock %}

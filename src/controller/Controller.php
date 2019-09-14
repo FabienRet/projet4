@@ -26,7 +26,8 @@ class Controller{
         $app = [
             'get' => $_GET,
             'session' => $_SESSION,
-            'post' => $_POST
+            'post' => $_POST,
+            'cookie' => $_COOKIE
         ];
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         $this->twig->addGlobal( 'app', $app);

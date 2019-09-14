@@ -2,7 +2,7 @@ body{
     background-color: #F6EFEC
 }
 
-h1, h3
+h1
 {
     text-align:center;
 }
@@ -11,8 +11,12 @@ a
     text-decoration: none;
     color: black;
 }
+h2{
+    text-align: center;
+}
 h3
 {
+    text-align: left;
     background-color:white;
     color:black;
     font-size:0.9em;
@@ -25,8 +29,7 @@ h3
 }
 .news
 {
-    width:70%;
-    margin:auto;
+    width: 70%;
 }
 .newComments{
     background-color: #82adf2;
@@ -35,4 +38,11 @@ h3
     width: 100%;
     height: auto;
 
+}
+#contenu{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.nav{
+    width: 15%;
 }

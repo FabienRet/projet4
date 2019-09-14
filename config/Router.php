@@ -69,6 +69,26 @@ class Router{
                 }
                 else if($_GET['route'] == 'report'){
                     $this->frontController->report($_GET['ID_comment']);
+                }else if($_GET['route'] == 'reportComment'){
+                    $this->frontController->reportComment();
+                }
+                else if($_GET['route'] == 'listUser'){
+                    $this->frontController->listUser();
+                }
+                else if($_GET['route'] == 'newName'){
+                    $this->frontController->newName($_POST);
+                }
+                else if($_GET['route'] == 'newMail'){
+                    $this->frontController->newMail($_POST);
+                }
+                else if($_GET['route'] == 'newPass'){
+                    $this->frontController->newPass($_POST);
+                }
+                else if($_GET['route'] == 'delete_member'){
+                    $this->frontController->deleteMember();
+                }
+                else if($_GET['route'] == 'comment_member'){
+                    $this->frontController->commentMember();
                 }
                 else{
 				echo 'Autre page !';

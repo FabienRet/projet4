@@ -16,6 +16,9 @@ En construction
     <li>Création du compte : {{ info.created_at }}</li>
 </ul>
 
-    <a href="../public/index.php?route=update_member">Modifier vos données</a>
+    <a href="../public/index.php?route=comment_member">Mes commentaires</a></br>
+    <a href="../public/index.php?route=update_member">Modifier vos données</a></br>
+    <a href="../public/index.php?route=delete_member">Supprimer votre compte</a></br>
+    {{ parent() }}
 
 {% endblock %}

@@ -37,4 +37,14 @@ Class CommentDAO extends Database
         $result = $this->sql($sql, [1, $idComment]);
         return $result;
     }
+    public function getReportComment(){
+        $sql = 'SELECT id, name, content, DATE_FORMAT(created_at, \'%d/%m/%Y\') AS created_at FROM comment WHERE report = 1';
+        $comment = $this->sql($sql);
+        return $comment;
+    }
+    public function commentMember(){
+        $sql = 'SELECT content, DATE_FORMAT(created_at, \'%d/%m/%Y\') AS created_at FROM comment WHERE name = ?';
+        $result = $this->sql($sql, [$_SESSION['name']]);
+        return $result;
+    }
 }

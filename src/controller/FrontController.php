@@ -131,8 +131,8 @@ class FrontController extends Controller
     }
 
     public function update_member(){
-        $infosMember = $this->connection->infoTab($_SESSION['name']);
-        echo $this->twig->render('member_update.html.twig', ['infoMember' => $infosMember]);
+        $info = $this->connection->infoTab($_SESSION['name']);
+        echo $this->twig->render('member_update.html.twig', ['info' => $info]);
     }
      public function update($post){
          if($this->connection->testPass($post['pass'], $post['checkpass']) == 0) {
@@ -142,6 +142,49 @@ class FrontController extends Controller
     public function report($comment){
         $this->comment->reportComment($comment);
         header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
+    }
+
+    public function reportComment(){
+        $comment = $this->comment->getReportComment();
+        echo $this->twig->render('report_comment.html.twig', ['comment' => $comment]);
+    }
+    public function listUser(){
+        $user = $this->connection->userList();
+        echo $this->twig->render('listUser.html.twig', ['user' => $user]);
+    }
+
+    public function newName($post){
+        if($this->connection->testName($post['name']) == 0) {
+            $this->connection->newname($post['name']);
+            $this->connection->createSession($post['name']);
+            header('Location: ../public/index.php');
+        }
+    }
+
+    public function newMail($post){
+        if($this->connection->testEmail($post['email']) == 0) {
+            $this->connection->NewMail($post['email']);
+            header('Location: ../public/index.php');
+        }
+    }
+
+    public function newPass($post){
+        if($this->connection->testPass($post['pass'], $post['checkpass']) == 0) {
+            $this->connection->newPass($post['pass']);
+            header('Location: ../public/index.php');
+        }
+    }
+
+    public function deleteMember(){
+        $this->connection->deleteMember();
+        $this->logout();
+        header('Location: ../public/index.php');
+    }
+
+    public function commentMember(){
+        $comment = $this->comment->commentMember();
+        echo $this->twig->render('my_comment.html.twig', ['comment' => $comment]);
+
     }
 
     public function logout(){

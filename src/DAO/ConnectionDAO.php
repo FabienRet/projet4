@@ -66,7 +66,37 @@ Class ConnectionDAO extends Database{
         return $idSession;
     }
 
-    public function updateMember($post){
+    public function userList(){
+        $tabUser = 'SELECT name, email FROM user';
+        $data = $this->sql($tabUser);
+        $user = $data->fetch();
+        var_dump($user);
+        return $user;
+    }
 
+    public function newName($name){
+        $id = 'SELECT id FROM user WHERE name = ?';
+        $data = $this->sql($id, [$_SESSION['name']]);
+        $result = $data->fetch();
+        var_dump($result);
+        $newName = 'UPDATE user SET name = ? WHERE id = ?';
+        $dataName = $this->sql($newName, [$name, $result['id']]);
+    }
+    public function newMail($mail){
+        $newMail = 'UPDATE user SET email = ? WHERE name = ?';
+        $dataMail = $this->sql($newMail, [$mail, $_SESSION['name']]);
+    }
+    public function deleteMember(){
+        $sql = 'DELETE FROM comment WHERE name=?';
+        $result = $this->sql($sql, [$_SESSION['name']]);
+        $sql2 = 'DELETE FROM article WHERE name=?';
+        $result2 = $this->sql($sql2, [$_SESSION['name']]);
+        $sql3 = 'DELETE FROM user WHERE name=?';
+        $result3 = $this->sql($sql3, [$_SESSION['name']]);
+    }
+
+    public function newPass($pass){
+        $newPass = 'UPDATE user SET password = ? WHERE name = ?';
+        $dataPass = $this->sql($newPass, [$pass, $_SESSION['name']]);
     }
 }
