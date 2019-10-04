@@ -5,7 +5,7 @@ namespace App\src\DAO;
 Class CommentDAO extends Database
 {
     public function getComment($idArticle){
-        $sql = 'SELECT id, name, content, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at FROM comment WHERE id_article = ? ORDER BY created_at';
+        $sql = 'SELECT id, name, content, created_at FROM comment WHERE id_article = ? ORDER BY created_at';
         $result = $this->sql($sql, [$idArticle]);
         return $result;
     }
@@ -15,7 +15,6 @@ Class CommentDAO extends Database
         $result = $this->sql($sql, [$idArticle, $_SESSION['name'], $mess]);
         return $result;
     }
-
     public function deleteComment($idComment){
         $sql = 'DELETE FROM comment WHERE id=?';
         $result = $this->sql($sql, [$idComment]);
@@ -31,7 +30,6 @@ Class CommentDAO extends Database
         $result = $this->sql($sql, [$nameComment, $textComment, $idComment]);
         return $result;
     }
-
     public function reportComment($idComment){
         $sql = "UPDATE comment SET report = ? WHERE id = ?";
         $result = $this->sql($sql, [1, $idComment]);
@@ -45,6 +43,11 @@ Class CommentDAO extends Database
     public function commentMember(){
         $sql = 'SELECT content, DATE_FORMAT(created_at, \'%d/%m/%Y\') AS created_at FROM comment WHERE name = ?';
         $result = $this->sql($sql, [$_SESSION['name']]);
+        return $result;
+    }
+    public function validateComment($idComment){
+        $sql = "UPDATE comment SET report = ? WHERE id = ?";
+        $result = $this->sql($sql, [0, $idComment]);
         return $result;
     }
 }

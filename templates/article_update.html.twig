@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Article{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
     {% for data in result %}
 

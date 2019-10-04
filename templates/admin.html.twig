@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Administration{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
 
 <h1>Administration</h1>
@@ -10,18 +11,20 @@
             <li><a href="../public/index.php?route=add_article">Créer un nouvel article</a></br></li>
             <li><a href="../public/index.php?route=reportComment">Liste des commentaires signalées</a></li>
             <li><a href="../public/index.php?route=listUser">Liste des utilisateurs</a></li>
-            <li>{{ parent() }}</li>
         </ul>
-<div class="news">
+        <div class="container">
+            <div class="row">
+
     {% for data in articles %}
+        <div class="news col-12">
     <h2><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
-
     <p>
-
         <br />
         <em><a href="../public/index.php?route=comment&article={{ data.id }}">Commentaires</a><a href="../public/index.php?route=get_article&article={{ data.id }}">Modifier</a><a href="../public/index.php?route=delete_article&article={{ data.id }}">Supprimer</a></em>
     </p>
+</div>
     {% endfor %}
+            </div>
 </div>
 </div>
 {% endblock %}

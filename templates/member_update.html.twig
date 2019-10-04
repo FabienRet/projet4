@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Mon espace{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-    {{ parent() }}
+
 
 <form method="post" action="../public/index.php?route=newName" class="newName">
     <label for="message">Pseudo</label> :  <input type="text" name="name" id="message" value={{ app.session.name }} ><br />

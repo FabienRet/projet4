@@ -7,8 +7,6 @@ namespace App\src\controller;
 class FrontController extends Controller
 {
 
-
-
     public function home(){
         $articles = $this->article->getArticles();
         echo $this->twig->render('home.html.twig', ['articles' => $articles]);
@@ -143,14 +141,19 @@ class FrontController extends Controller
         $this->comment->reportComment($comment);
         header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
     }
+    public function validateComment($comment){
+        var_dump($comment);
+        $this->comment->validateComment($comment);
+        header('Location: ../public/index.php?route=reportComment');
+    }
 
     public function reportComment(){
         $comment = $this->comment->getReportComment();
         echo $this->twig->render('report_comment.html.twig', ['comment' => $comment]);
     }
     public function listUser(){
-        $user = $this->connection->userList();
-        echo $this->twig->render('listUser.html.twig', ['user' => $user]);
+        $users = $this->connection->userList();
+        echo $this->twig->render('listUser.html.twig', ['users' => $users]);
     }
 
     public function newName($post){
@@ -190,5 +193,13 @@ class FrontController extends Controller
     public function logout(){
         session_destroy();
         header('Location: ../public/index.php');
+    }
+
+    public function checkLogin(){
+
+    }
+
+    public function checkAdmin(){
+
     }
 }

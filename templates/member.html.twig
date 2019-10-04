@@ -1,24 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Mon espace{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
 <h1>Mon espace membre</h1>
-
-
-BTN mes données</br>
-
-En construction
-
-
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-2 offset-md-1">
+    <ul >
+        <li><a href="../public/index.php?route=comment_member">Mes commentaires</a></br></li>
+        <li><a href="../public/index.php?route=update_member">Modifier vos données</a></br></li>
+        <li><a href="../public/index.php?route=delete_member">Supprimer</a></li>
+    </ul>
+    </div>
+<div class="col-md-6 text-center">
+    <p>Mes infos</p>
 <ul>
     <li>Pseudo : {{ app.session.name }}</li>
     <li>Email : {{ info.email }}</li>
     <li>Création du compte : {{ info.created_at }}</li>
 </ul>
+</div>
 
-    <a href="../public/index.php?route=comment_member">Mes commentaires</a></br>
-    <a href="../public/index.php?route=update_member">Modifier vos données</a></br>
-    <a href="../public/index.php?route=delete_member">Supprimer votre compte</a></br>
-    {{ parent() }}
+</div>
+</div>
+{% endblock %}
+{% block javascripts %}
 
 {% endblock %}

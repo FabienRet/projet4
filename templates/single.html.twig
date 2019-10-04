@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Article{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-    {{ parent() }}
     <div class="text-left">
         {% for data in article %}
         <h2>{{ data.title }}</h2>

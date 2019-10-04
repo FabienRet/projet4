@@ -67,11 +67,9 @@ Class ConnectionDAO extends Database{
     }
 
     public function userList(){
-        $tabUser = 'SELECT name, email FROM user';
-        $data = $this->sql($tabUser);
-        $user = $data->fetch();
-        var_dump($user);
-        return $user;
+        $tabUser = 'SELECT * FROM user';
+        $users = $this->sql($tabUser);
+        return $users;
     }
 
     public function newName($name){

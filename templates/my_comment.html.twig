@@ -1,14 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Mes commentaires{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-<h1>Mes commentaires
-    En construction
+    <h1>Mes commentaires</h1>
+    <div class="container">
+    <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Email</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
     {% for data in comment %}
-
-    <h3>{{' le ' ~ data.created_at }} </h3>
-    <p>{{ data.content }}</p>
-        <a href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
-        <a href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
+    <tbody>
+    <td><h3>{{' le ' ~ data.created_at }} </h3></td>
+    <td><p>{{ data.content }}</p></td>
+        <td><a class="btn btn-secondary" href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
+        <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a></td>
+    </tbody>
     {% endfor %}
+    </table>
+    </div>
 {% endblock %}

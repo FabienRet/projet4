@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
     <form method="post" action="../public/index.php?route=register" class="newComments">
         <label for="pseudo">Pseudo</label>

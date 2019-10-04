@@ -1,39 +1,70 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Commentaires{% endblock %}
+{% block header %}{{ parent() }}{% endblock %}
 {% block content %}
 
-    <p><a href="../public/index.php">Retour à la liste des billets</a></p>
-    <div class="news">
+    <div class="container">
         {% for data in article %}
-{{ dump(article) }}
-            <h3>{{ data.title }}</h3><em>{{ 'le'~data.created_at_fr }}</em>
+            <h2>{{ data.title }}</h2></br><em>{{ 'le'~data.created_at_fr }}</em></br>
             <p>{{ data.content }}</p>
 
     {% endfor %}
     </div>
 <h2>Commentaires</h2>
-<div>
-    {{ dump(comment) }}
+<div class="container">
+<ul class="list-unstyled">
     {% for data in comment %}
-
-        <h3>{{ data.name ~ ' le ' ~ data.created_at }} </h3>
+<li>
+        <h3>{{ data.name ~ ' le ' ~ data.created_at|date("d/m/Y") }} </h3>
+    <div >
         <p>{{ data.content }}</p>
         {% if app.session.name == data.name or app.session.id == 2 %}
             <a href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <a href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
             {% else %}
             <a href="{{ '../public/index.php?route=report&ID_comment='~data.id~'&ID_article='~app.get.article }}">Signaler</a>
         {% endif %}
+    </div>
+</br>
+</li>
     {% endfor %}
+</ul>
 </div>
+<div class="container">
     <p class="newComments">Ajouter un nouveau commentaire :
         <form method="post" action="../public/index.php?route=add_comment&article={{ app.get.article }}" class="newComments">
     <p>
-        <label for="message">Message</label> :  <input type="text" name="message" id="message" value={{ app.post.message }} /><br />
+        <label for="message">Message</label> :  <input type="text" name="message" id="message"><br />
 
         <input type="submit" value="Envoyer" />
     </p>
     </form>
     </p>
+</div>
 {% endblock %}

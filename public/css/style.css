@@ -27,14 +27,10 @@ h3
     background-color:#CCCCCC;
     margin-top:0px;
 }
-.news
-{
-    width: 70%;
-}
 .newComments{
     background-color: #82adf2;
 }
-.image{
+.img-fluid{
     width: 100%;
     height: auto;
 
@@ -45,4 +41,7 @@ h3
 }
 .nav{
     width: 15%;
+}
+footer{
+    background-color: black;
 }
