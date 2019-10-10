@@ -5,14 +5,14 @@ class ArticleDAO extends Database
 {
     public function getArticles()
     {
-        $sql = 'SELECT id, title, content, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr FROM article ORDER BY created_at DESC LIMIT 0, 5';
+        $sql = 'SELECT id, title, content, created_at FROM article ORDER BY created_at DESC LIMIT 0, 5';
         $result = $this->sql($sql);
         return $result;
     }
 
     public function getArticle($idArt)
     {
-        $sql = 'SELECT id, title, content, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr FROM article WHERE id = ?';
+        $sql = 'SELECT id, title, content, created_at FROM article WHERE id = ?';
         $result = $this->sql($sql, [$idArt]);
         return $result;
     }

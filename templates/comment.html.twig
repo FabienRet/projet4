@@ -6,8 +6,8 @@
 
     <div class="container">
         {% for data in article %}
-            <h2>{{ data.title }}</h2></br><em>{{ 'le'~data.created_at_fr }}</em></br>
-            <p>{{ data.content }}</p>
+            <h2>{{ data.title }}</h2></br><em>{{ 'le '~data.created_at|date("d/m/Y") }}</em></br>
+            <p>{{ data.content|raw }}</p>
 
     {% endfor %}
     </div>
@@ -20,10 +20,9 @@
     <div >
         <p>{{ data.content }}</p>
         {% if app.session.name == data.name or app.session.id == 2 %}
-            <a href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                Supprimer
             </button>
 
             <!-- Modal -->
@@ -31,24 +30,24 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            Voulez-vous vraiment supprimer ce commentaire ?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
+            <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
             {% else %}
-            <a href="{{ '../public/index.php?route=report&ID_comment='~data.id~'&ID_article='~app.get.article }}">Signaler</a>
+            <a class="btn btn-secondary" href="{{ '../public/index.php?route=report&ID_comment='~data.id~'&ID_article='~app.get.article }}">Signaler</a>
         {% endif %}
     </div>
 </br>
@@ -56,6 +55,7 @@
     {% endfor %}
 </ul>
 </div>
+    {% if app.session.id == 1 or app.session.id == 2 %}
 <div class="container">
     <p class="newComments">Ajouter un nouveau commentaire :
         <form method="post" action="../public/index.php?route=add_comment&article={{ app.get.article }}" class="newComments">
@@ -67,4 +67,5 @@
     </form>
     </p>
 </div>
+    {% endif %}
 {% endblock %}

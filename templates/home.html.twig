@@ -3,20 +3,16 @@
 {% block title %}Accueil{% endblock %}
 {% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-<div id="contenu">
+
+
 <!--<h1>Mon super blog !</h1>-->
 <div class="container">
 {% for data in articles %}
     <h2><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
-    <p>{{ data.content|slice(0, 200)|raw }}...</p>
+    <p>{{ data.content|striptags[:200] }}...</p>
     {% if app.session.id == 1 or app.session.id == 2 %}
     <em><a href="{{ '../public/index.php?route=comment&article='~data.id}}">Commentaires </a></em>
     {% endif %}
 {% endfor %}
 </div>
-</div>
-
-{% endblock %}
-{% block javascripts %}
-{{ parent() }}
 {% endblock %}

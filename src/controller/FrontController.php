@@ -6,17 +6,31 @@ namespace App\src\controller;
 
 class FrontController extends Controller
 {
+    public function getConnect(){
+        if(!isset($_SESSION['name'])){
+            header('Location: ../public/index.php');
+        }
+    }
+
+    public function getAdmin(){
+        $this->getConnect();
+        if($_SESSION['id'] != 2){
+            header('Location: ../public/index.php');
+        }
+    }
 
     public function home(){
         $articles = $this->article->getArticles();
         echo $this->twig->render('home.html.twig', ['articles' => $articles]);
     }
     public function admin(){
+        $this->getAdmin();
         $articles = $this->article->getArticles();
         echo $this->twig->render('admin.html.twig', ['articles' => $articles]);
         }
 
     public function member($name){
+        $this->getConnect();
         $info = $this->connection->infoTab($name);
         echo $this->twig->render('member.html.twig', ['info' => $info]);
     }
@@ -28,12 +42,14 @@ class FrontController extends Controller
     }
 
     public function getComment($idArticle){
+        $this->getConnect();
         $article = $this->article->getArticle($idArticle);
         $comment = $this->comment->getComment($idArticle);
         echo $this->twig->render('comment.html.twig', ['article' => $article, 'comment' => $comment]);
         }
 
     public function addArticle($post) {
+        $this->getAdmin();
         if(isset($post) && !empty($post)){
             $this->article->addArticle($post['titre'], $post['article']);
             header ('Location: ../public/index.php');
@@ -42,16 +58,19 @@ class FrontController extends Controller
     }
 
     public function deleteArticle($idArticle){
+        $this->getConnect();
         $this->article->deleteArticle($idArticle);
         header('Location: ../public/index.php');
     }
 
     public function deleteComment($idComment){
+        $this->getConnect();
         $this->comment->deleteComment($idComment);
         header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
     }
 
     public function addComment($idArticle, $post){
+        $this->getConnect();
         if(isset($post) && !empty($post)){
             $this->comment->addComment($idArticle, $post['message']);
             header('Location: ../public/index.php?route=comment&article='.$_GET["article"].'');
@@ -63,6 +82,7 @@ class FrontController extends Controller
         echo $this->twig->render('article_update.html.twig', ['result' => $result]);
     }
     public function updateArticle($idArticle, $post){
+        $this->getConnect();
         if(isset($post) && !empty($post)) {
             $this->article->updateArticle($post['titre'], $post['article'], $idArticle);
             header('Location: ../public/index.php');
@@ -73,6 +93,7 @@ class FrontController extends Controller
         echo $this->twig->render('comment_update.html.twig', ['comment' => $comment]);
     }
     public function updateComment($idComment, $post){
+        $this->getConnect();
         if(isset($post) && !empty($post)) {
             $this->comment->updateComment($idComment, $post['name'], $post['content']);
             header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
@@ -148,10 +169,12 @@ class FrontController extends Controller
     }
 
     public function reportComment(){
+        $this->getConnect();
         $comment = $this->comment->getReportComment();
         echo $this->twig->render('report_comment.html.twig', ['comment' => $comment]);
     }
     public function listUser(){
+        $this->getAdmin();
         $users = $this->connection->userList();
         echo $this->twig->render('listUser.html.twig', ['users' => $users]);
     }
@@ -179,12 +202,14 @@ class FrontController extends Controller
     }
 
     public function deleteMember(){
+        $this->getConnect();
         $this->connection->deleteMember();
         $this->logout();
         header('Location: ../public/index.php');
     }
 
     public function commentMember(){
+        $this->getConnect();
         $comment = $this->comment->commentMember();
         echo $this->twig->render('my_comment.html.twig', ['comment' => $comment]);
 
@@ -195,11 +220,4 @@ class FrontController extends Controller
         header('Location: ../public/index.php');
     }
 
-    public function checkLogin(){
-
-    }
-
-    public function checkAdmin(){
-
-    }
 }
