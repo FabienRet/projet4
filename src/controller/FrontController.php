@@ -11,17 +11,15 @@ class FrontController extends Controller
             header('Location: ../public/index.php');
         }
     }
-
     public function getAdmin(){
         $this->getConnect();
         if($_SESSION['id'] != 2){
             header('Location: ../public/index.php');
         }
     }
-
     public function home(){
         $articles = $this->article->getArticles();
-        $article = $this->article->getArticles();
+        $article = $this->article->getTitle();
         echo $this->twig->render('home.html.twig', ['articles' => $articles, 'article' => $article]);
     }
     public function admin(){
@@ -31,7 +29,6 @@ class FrontController extends Controller
         $comment = $this->comment->getReportComment();
         echo $this->twig->render('admin.html.twig', ['articles' => $articles, 'users' => $users, 'comment'=> $comment]);
         }
-
     public function member($name){
         $this->getConnect();
         $info = $this->connection->infoTab($name);
@@ -39,13 +36,11 @@ class FrontController extends Controller
         $infos = $this->connection->infoTab($_SESSION['name']);
         echo $this->twig->render('member.html.twig', ['info' => $info, 'comment'=> $comment, 'infos'=>$infos ]);
     }
-
     public function article($articleId){
         $article = $this->article->getArticle($articleId);
         $comments = $this->comment->getComment($articleId);
         echo $this->twig->render('single.html.twig', ['article' => $article, 'comment' => $comments]);
     }
-
     public function addArticle($post) {
         $this->getAdmin();
         if(isset($post) && !empty($post)){
@@ -54,19 +49,16 @@ class FrontController extends Controller
         }
         echo $this->twig->render('article_add.html.twig');
     }
-
     public function deleteArticle($idArticle){
         $this->getConnect();
         $this->article->deleteArticle($idArticle);
         header('Location: ../public/index.php');
     }
-
     public function deleteComment($idComment){
         $this->getConnect();
         $this->comment->deleteComment($idComment);
         header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'');
     }
-
     public function addComment($idArticle, $post){
         $this->getConnect();
         if(isset($post) && !empty($post)){
@@ -174,43 +166,36 @@ class FrontController extends Controller
         $users = $this->connection->userList();
         return $users;
     }
-
     public function newName($post){
         if($this->connection->testName($post['name']) == 0) {
             $this->connection->newname($post['name']);
             $this->connection->createSession($post['name']);
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=member');
         }
     }
-
     public function newMail($post){
         if($this->connection->testEmail($post['email']) == 0) {
             $this->connection->NewMail($post['email']);
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=member');
         }
     }
-
     public function newPass($post){
         if($this->connection->testPass($post['pass'], $post['checkpass']) == 0) {
             $this->connection->newPass($post['pass']);
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=member');
         }
     }
-
     public function deleteMember(){
         $this->getConnect();
         $this->connection->deleteMember();
         $this->logout();
         header('Location: ../public/index.php');
     }
-
     public function commentMember(){
         $this->getConnect();
         $comment = $this->comment->commentMember();
         echo $this->twig->render('my_comment.html.twig', ['comment' => $comment]);
-
     }
-
     public function logout(){
         session_destroy();
         header('Location: ../public/index.php');

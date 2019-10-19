@@ -3,16 +3,23 @@
 {% block title %}Création{% endblock %}
 {% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-    <p>Bienvenu sur l'éditeur de texte. ici vous pouvez ajouter votre nouvel article.</p>
-    <p>Pensez à respecter au minimums les règles de français basique.</p>
-    <form  method="post" action="../public/index.php?route=add_article" class="newComments">
-        <p>
-            <label for="titre">Titre</label> : <input type="text" name="titre" id="pseudo" /><br />
-            <label for="article">Article</label> :  <textarea name="article" id="message" ></textarea><br />
+<h2>Editeur de texte</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form method="post" action="../public/index.php?route=add_article" name="sentMessage" id="contactForm">
+                    <div class="control-group">
+                        <div class="form-group controls">
 
-            <input type="submit" value="Envoyer" />
-        </p>
+            <label for="titre">Titre</label> : <input type="text" name="titre" id="pseudo" /><br />
+            <label for="article">Article</label> :  <textarea name="article" id="message" rows="20" ></textarea><br />
+
+            <input type="submit" class="btn btn-secondary" value="Envoyer" />
+</div>
+</div>
     </form>
+    </div>
+    </div>
 
 {% endblock %}
 {% block javascripts %}

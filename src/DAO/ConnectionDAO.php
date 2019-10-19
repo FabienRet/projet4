@@ -56,7 +56,6 @@ Class ConnectionDAO extends Database{
         $donnees = $this->sql($tableauTest, [$name]);
         $idSession = $donnees->fetch();
         $_SESSION['id']= $idSession['id_group'];
-        var_dump($_SESSION);
     }
 
     public function infoTab($name){
@@ -76,7 +75,6 @@ Class ConnectionDAO extends Database{
         $id = 'SELECT id FROM user WHERE name = ?';
         $data = $this->sql($id, [$_SESSION['name']]);
         $result = $data->fetch();
-        var_dump($result);
         $newName = 'UPDATE user SET name = ? WHERE id = ?';
         $dataName = $this->sql($newName, [$name, $result['id']]);
     }

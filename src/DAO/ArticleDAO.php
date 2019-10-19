@@ -8,7 +8,7 @@ class ArticleDAO extends Database
         $sql = 'SELECT b.id, b.title, b.content, b.created_at, (SELECT count(*) FROM comment c WHERE c.id_article=b.id) as nbComment 
                 FROM article b 
                 left join comment c on c.id_article = b.id 
-                group by b.id ORDER BY created_at DESC LIMIT 0, 5 ';
+                group by b.id ORDER BY b.id DESC LIMIT 0, 5 ';
         $result = $this->sql($sql);
         return $result;
     }
@@ -37,6 +37,11 @@ class ArticleDAO extends Database
     public function updateArticle($titleArt, $articleArt, $idArt){
         $sql = "UPDATE article SET title = ?, content = ? WHERE id = ?";
         $result = $this->sql($sql, [$titleArt, $articleArt, $idArt]);
+        return $result;
+    }
+    public function getTitle(){
+        $sql = 'SELECT title FROM article ORDER BY id';
+        $result = $this->sql($sql);
         return $result;
     }
 }

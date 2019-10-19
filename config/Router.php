@@ -29,7 +29,7 @@ class Router{
                     } else if ($_GET['route'] == 'delete_comment') {
                         $this->frontController->deleteComment($_GET['ID_comment']);
                     } else if ($_GET['route'] == 'get_article') {
-                        $this->frontController->getArticle($_GET['article']);
+                        $this->frontController->getArticle($_GET['articleId']);
                     }else if($_GET['route'] == 'get_comment'){
                         $this->frontController->comment($_GET['ID_comment']);
                     } else if ($_GET['route'] == 'update_article') {

@@ -12,9 +12,6 @@
         <li class="nav-item">
             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Mes commentaires</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Modifier mes infos</a>
-        </li>
     </ul>
     </div>
     <div class="tab-content" id="pills-tabContent">
@@ -28,6 +25,7 @@
                             <li>Email : {{ info.email }}</li></br>
                             <li>Création du compte : {{ info.created_at }}</li></br>
                         </ul>
+                        <a class="btn btn-secondary" href="../public/index.php?route=update_member">Modifier</a>
                         <div class="list-group-item">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
@@ -104,73 +102,6 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <div class="container">
-                <div class="row">
-                        <div class="justify-content-center">
-                        <form method="post" action="../public/index.php?route=newName" class="newName">
-                            <div class="control-group">
-                                <label for="message">Pseudo</label> : </br> <input type="text" name="name" id="message" value={{ app.session.name }} >
-                                <input type="submit" value="Modifier" class="btn btn-secondary"/>
-                            </div>
-                        </form>
-                        <form method="post" action="../public/index.php?route=newMail" class="newMail">
-                            <label for="message">Email</label> : </br>  <input type="email" name="email" id="email" value={{ info.email }} >
-                            <input type="submit" value="Modifier" class="btn btn-secondary" />
-                        </form>
-                        <form method="post" action="../public/index.php?route=newPass" class="newName">
-                            <label for="pass">Mot de passe</label></br>
-                            <input type="password" name="pass" id="pass" />
-                            <br />
-                            <label for="checkpass">Confirmation mot de passe</label></br>
-                            <input type="password" name="checkpass" id="checkpass" />
-                            <input type="submit" value="Changer mot de passe" class="btn btn-secondary"/>
-                        </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-
-{#<div class="container-fluid">
-<div class="row">
-
-<div class="col-12 text-center">
-    <p>Mes infos</p></br>
-<ul>
-    <li>Pseudo : {{ app.session.name }}</li></br>
-    <li>Email : {{ info.email }}</li></br>
-    <li>Création du compte : {{ info.created_at }}</li></br>
-</ul>
-    <div class="list-group-item">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
-            Supprimer
-        </button></div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Voulez-vous vraiment supprimer votre compte ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <a class="btn btn-secondary" href="../public/index.php?route=delete_member">Supprimer</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-</div>
-</div>#}
 {% endblock %}

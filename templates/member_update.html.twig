@@ -3,31 +3,30 @@
 {% block title %}Mon espace{% endblock %}
 {% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-
-    <div class="container">
-    <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-        <h1>Modifiez mes informations</h1></br>
-<form method="post" action="../public/index.php?route=newName" class="newName">
-    <div class="control-group">
-        <label for="message">Pseudo</label> : </br> <input type="text" name="name" id="message" value={{ app.session.name }} >
-    <input type="submit" value="Modifier" class="btn btn-secondary"/>
-    </div>
-</form>
-    <form method="post" action="../public/index.php?route=newMail" class="newMail">
-        <label for="message">Email</label> : </br>  <input type="email" name="email" id="email" value={{ info.email }} >
-        <input type="submit" value="Modifier" class="btn btn-secondary" />
-    </form>
-    <form method="post" action="../public/index.php?route=newPass" class="newName">
-        <label for="pass">Mot de passe</label></br>
-        <input type="password" name="pass" id="pass" />
-        <br />
-        <label for="checkpass">Confirmation mot de passe</label></br>
-        <input type="password" name="checkpass" id="checkpass" />
-        <input type="submit" value="Changer mot de passe" class="btn btn-secondary"/>
-    </form>
-    </div>
-    </div>
-    </div>
-
+<h2>Modifiez vos informations</h2></br>
+            <div class="container">
+                <div class="row justify-content-center">
+            <div class="justify-content-center">
+                <form method="post" action="../public/index.php?route=newName" class="newName">
+                    <div class="control-group">
+                        <label for="message">Pseudo</label> : </br> <input type="text" name="name" id="message" value={{ app.session.name }} >
+                        <input type="submit" value="Modifier" class="btn btn-secondary"/>
+                    </div>
+                </form>
+                <form method="post" action="../public/index.php?route=newMail" class="newMail">
+                    <label for="message">Email</label> : </br>  <input type="email" name="email" id="email" value={{ info.email }} >
+                    <input type="submit" value="Modifier" class="btn btn-secondary" />
+                </form>
+                <form method="post" action="../public/index.php?route=newPass" class="newName">
+                    <label for="pass">Mot de passe</label></br>
+                    <input type="password" name="pass" id="pass" />
+                    <br />
+                    <label for="checkpass">Confirmation mot de passe</label></br>
+                    <input type="password" name="checkpass" id="checkpass" />
+                    <input type="submit" value="Changer mot de passe" class="btn btn-secondary"/>
+                </form>
+            </div>
+        </div>
+            </div>
+    </br>
 {% endblock %}

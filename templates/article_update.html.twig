@@ -5,15 +5,23 @@
 {% block content %}
     {% for data in result %}
 
-    <p>Bienvenu sur l'éditeur de texte. ici vous pouvez ajouter votre nouvel article.</p>
-    <p>Pensez à respecter au minimums les règles de français basique.</p>
-    <form method="post" action="../public/index.php?route=update_article&article={{ app.get.article }}" class="newComments">
-        <label for="titre">Titre</label> : <input type="text" name="titre" id="pseudo" value="{{ data.title }}"><br />
-        <label for="article">Article</label> :  <textarea name="article" id="message"> {{ data.content }} </textarea><br/>
+<h2>Editeur de texte</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form method="post" action="../public/index.php?route=update_article&articleId={{ app.get.articleId }}" name="sentMessage" id="contactForm">
+                    <div class="control-group">
+                        <div class="form-group controls">
 
-        <input type="submit" value="Envoyer" />
+            <label for="titre">Titre</label> : <input type="text" name="titre" id="pseudo" value="{{ data.title }}"><br />
+            <label for="article">Article</label> :  <textarea name="article" id="message" rows="20" >{{ data.content }}</textarea><br />
+
+            <input type="submit" class="btn btn-secondary" value="Envoyer" />
+</div>
+</div>
     </form>
-
+    </div>
+    </div>
 
     {% endfor %}
 {% endblock %}
