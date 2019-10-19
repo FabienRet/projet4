@@ -25,15 +25,15 @@ class Router{
                     } else if ($_GET['route'] == 'comment') {
                         $this->frontController->getComment($_GET['article']);
                     } else if ($_GET['route'] == 'add_comment') {
-                        $this->frontController->addComment($_GET['article'], $_POST);
+                        $this->frontController->addComment($_GET['articleId'], $_POST);
                     } else if ($_GET['route'] == 'delete_comment') {
                         $this->frontController->deleteComment($_GET['ID_comment']);
                     } else if ($_GET['route'] == 'get_article') {
                         $this->frontController->getArticle($_GET['article']);
+                    }else if($_GET['route'] == 'get_comment'){
+                        $this->frontController->comment($_GET['ID_comment']);
                     } else if ($_GET['route'] == 'update_article') {
                         $this->frontController->updateArticle($_GET['article'], $_POST);
-                    } else if ($_GET['route'] == 'get_comment') {
-                        $this->frontController->comment($_GET['ID_comment']);
                     } else if ($_GET['route'] == 'update_comment') {
                         $this->frontController->updatecomment($_GET['ID_comment'], $_POST);
                     } else if ($_GET['route'] == 'register') {
@@ -51,7 +51,7 @@ class Router{
                     } else if ($_GET['route'] == 'update') {
                         $this->frontController->update($_POST);
                     } else if ($_GET['route'] == 'report') {
-                        $this->frontController->report($_GET['ID_comment']);
+                        $this->frontController->report($_GET['ID_comment'], $_GET['articleId']);
                     } else if ($_GET['route'] == 'reportComment') {
                         $this->frontController->reportComment();
                     } else if ($_GET['route'] == 'listUser') {

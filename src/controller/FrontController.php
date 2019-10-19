@@ -21,18 +21,23 @@ class FrontController extends Controller
 
     public function home(){
         $articles = $this->article->getArticles();
-        echo $this->twig->render('home.html.twig', ['articles' => $articles]);
+        $article = $this->article->getArticles();
+        echo $this->twig->render('home.html.twig', ['articles' => $articles, 'article' => $article]);
     }
     public function admin(){
         $this->getAdmin();
         $articles = $this->article->getArticles();
-        echo $this->twig->render('admin.html.twig', ['articles' => $articles]);
+        $users = $this->connection->userList();
+        $comment = $this->comment->getReportComment();
+        echo $this->twig->render('admin.html.twig', ['articles' => $articles, 'users' => $users, 'comment'=> $comment]);
         }
 
     public function member($name){
         $this->getConnect();
         $info = $this->connection->infoTab($name);
-        echo $this->twig->render('member.html.twig', ['info' => $info]);
+        $comment = $this->comment->commentMember();
+        $infos = $this->connection->infoTab($_SESSION['name']);
+        echo $this->twig->render('member.html.twig', ['info' => $info, 'comment'=> $comment, 'infos'=>$infos ]);
     }
 
     public function article($articleId){
@@ -40,13 +45,6 @@ class FrontController extends Controller
         $comments = $this->comment->getComment($articleId);
         echo $this->twig->render('single.html.twig', ['article' => $article, 'comment' => $comments]);
     }
-
-    public function getComment($idArticle){
-        $this->getConnect();
-        $article = $this->article->getArticle($idArticle);
-        $comment = $this->comment->getComment($idArticle);
-        echo $this->twig->render('comment.html.twig', ['article' => $article, 'comment' => $comment]);
-        }
 
     public function addArticle($post) {
         $this->getAdmin();
@@ -66,17 +64,16 @@ class FrontController extends Controller
     public function deleteComment($idComment){
         $this->getConnect();
         $this->comment->deleteComment($idComment);
-        header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
+        header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'');
     }
 
     public function addComment($idArticle, $post){
         $this->getConnect();
         if(isset($post) && !empty($post)){
             $this->comment->addComment($idArticle, $post['message']);
-            header('Location: ../public/index.php?route=comment&article='.$_GET["article"].'');
+            header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'');
         }
     }
-
     public function getArticle($idArticle){
         $result = $this->article->getArticle($idArticle);
         echo $this->twig->render('article_update.html.twig', ['result' => $result]);
@@ -96,7 +93,7 @@ class FrontController extends Controller
         $this->getConnect();
         if(isset($post) && !empty($post)) {
             $this->comment->updateComment($idComment, $post['name'], $post['content']);
-            header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
+            header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'');
         }
     }
     public function login($post){
@@ -157,10 +154,9 @@ class FrontController extends Controller
          if($this->connection->testPass($post['pass'], $post['checkpass']) == 0) {
      }
     }
-
-    public function report($comment){
+    public function report($comment, $articleId){
         $this->comment->reportComment($comment);
-        header('Location: ../public/index.php?route=comment&article='.$_GET["ID_article"].'');
+        header('Location: ../public/index.php?route=single&articleId='.$articleId);
     }
     public function validateComment($comment){
         var_dump($comment);
@@ -176,7 +172,7 @@ class FrontController extends Controller
     public function listUser(){
         $this->getAdmin();
         $users = $this->connection->userList();
-        echo $this->twig->render('listUser.html.twig', ['users' => $users]);
+        return $users;
     }
 
     public function newName($post){

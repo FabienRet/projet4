@@ -6,7 +6,7 @@
         <p>Modifier votre commentaire :</p>
         {{ dump(app.get) }}
         {% for data in comment %}
-            <form method="post" action="../public/index.php?route=update_comment&ID_article={{ app.get.ID_article }}&ID_comment={{ app.get.ID_comment }}" class="newComments">
+            <form method="post" action="../public/index.php?route=update_comment&articleId={{ app.get.articleId }}&ID_comment={{ app.get.ID_comment }}" class="newComments">
                 <p>
                     <label for="pseudo">Pseudo</label> : <input type="text" name="name" id="auteur" value="{{ data.name }}" /><br />
                     <label for="message">Message</label> :  <input type="text" name="content" id="commentaire" value="{{ data.content }}" /><br />

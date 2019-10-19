@@ -5,7 +5,7 @@ namespace App\src\DAO;
 Class CommentDAO extends Database
 {
     public function getComment($idArticle){
-        $sql = 'SELECT id, name, content, created_at FROM comment WHERE id_article = ? ORDER BY created_at';
+        $sql = 'SELECT id, name, content, report, created_at FROM comment WHERE id_article = ? ORDER BY created_at';
         $result = $this->sql($sql, [$idArticle]);
         return $result;
     }
@@ -49,5 +49,8 @@ Class CommentDAO extends Database
         $sql = "UPDATE comment SET report = ? WHERE id = ?";
         $result = $this->sql($sql, [0, $idComment]);
         return $result;
+    }
+    public function nbComment(){
+
     }
 }

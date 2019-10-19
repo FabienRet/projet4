@@ -3,19 +3,46 @@
 {% block title %}Inscription{% endblock %}
 {% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-    <form method="post" action="../public/index.php?route=register" class="newComments">
-        <label for="pseudo">Pseudo</label>
-        <input type="text" name="pseudo" id="pseudo" />
-        <br />
-        <label for="pass">Mot de passe</label>
-        <input type="password" name="pass" id="pass" />
-        <br />
-        <label for="checkpass">Confirmation mot de passe</label>
-        <input type="password" name="checkpass" id="checkpass" />
-        <br />
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" />
-
-        <input type="submit" value="Envoyer" />
-    </form>
+    <h1>Inscription</h1></br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form method="post" action="../public/index.php?route=register" name="sentMessage" id="contactForm">
+                    <div class="control-group">
+                        <div class="form-group controls">
+                            <label>Pseudo</label>
+                            <input type="text" class="form-control" placeholder="Name" id="pseudo" name="pseudo" required data-validation-required-message="Entrez votre pseudo.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group  controls">
+                            <label>Mot de passe</label>
+                            <input type="password" class="form-control" placeholder="Password" id="pass" name="pass" required data-validation-required-message="Entrez votre mot de passe.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12  controls">
+                            <label>Confirmation mot de passe</label>
+                            <input type="password" class="form-control" placeholder="Check Pass" id="checkpass" name="checkpass" required data-validation-required-message="Confirmez votr emot de passe.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group  controls">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="Email Address" id="email" name="email" required data-validation-required-message="Entrez votre adresse mail.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-secondary" id="Envoyer">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

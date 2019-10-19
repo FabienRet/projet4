@@ -3,16 +3,34 @@
 {% block title %}Accueil{% endblock %}
 {% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-
-
+</br>
 <!--<h1>Mon super blog !</h1>-->
-<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-2 sommaire">
+        <p>Sommaire</p>
+
+            <ul>
+                {% for data in article %}
+                <li><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+<div class="col">
 {% for data in articles %}
-    <h2><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
-    <p>{{ data.content|striptags[:200] }}...</p>
-    {% if app.session.id == 1 or app.session.id == 2 %}
-    <em><a href="{{ '../public/index.php?route=comment&article='~data.id}}">Commentaires </a></em>
-    {% endif %}
+    <h2><a class="btn btn-secondary" href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
+    <p class="text-justify">{{ data.content|striptags[:200] }}{...}</p>
+    <a class="linkSuit" href="../public/index.php?route=single&articleId={{ data.id }}">Lire la suite...</a></br>
+    <em><a href="{{ '../public/index.php?route=single&articleId='~data.id~'#linkCom'}}">Commentaires </a>
+        <span class="badge badge-secondary">{{ data.nbComment }}</span></em>
+</br>
 {% endfor %}
-</div>
+        </div>
+
+    <div class="col-2 listInfos">
+        <h2>A propos de moi</h2>
+    </div>
+        </div>
+    </div>
+    </br>
 {% endblock %}

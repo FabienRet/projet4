@@ -11,13 +11,13 @@
 
         {% endfor %}
     </div>
-    <h2>Commentaires</h2>
+    <h2 id="linkCom">Commentaires</h2>
     <div class="container">
         <ul class="list-unstyled">
             {% for data in comment %}
                 <li>
                     <h3>{{ data.name ~ ' le ' ~ data.created_at|date("d/m/Y") }} </h3>
-                    <div >
+                    <div class="comment">
                         <p>{{ data.content }}</p>
                         {% if app.session.name == data.name or app.session.id == 2 %}
                             <!-- Button trigger modal -->
@@ -40,14 +40,17 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
+                                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&articleId='~app.get.articleId}}">Supprimer </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a>
+                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&articleId='~app.get.articleId}}">Modifier</a>
                         {% else %}
-                            <a class="btn btn-secondary" href="{{ '../public/index.php?route=report&ID_comment='~data.id~'&ID_article='~app.get.article }}">Signaler</a>
+                            <a class="btn btn-secondary" href="{{ '../public/index.php?route=report&ID_comment='~data.id~'&articleId='~app.get.articleId}}">Signaler</a>
+                        {% endif %}
+                        {% if data.report == 1 %}
+                            <span class="badge badge-danger">Commentaire signalé</span>
                         {% endif %}
                     </div>
                     </br>
@@ -56,16 +59,16 @@
         </ul>
     </div>
     {% if app.session.id == 1 or app.session.id == 2 %}
-    <div class="container">
-        <p class="newComments">Ajouter un nouveau commentaire :
-            <form method="post" action="../public/index.php?route=add_comment&article={{ app.get.article }}" class="newComments">
-        <p>
-            <label for="message">Message</label> :  <input type="text" name="message" id="message"><br />
+        <div class="container">
+            <div class="comment">
+                <form method="post" action="../public/index.php?route=add_comment&articleId={{ app.get.articleId }}">
+                <label for="message">Ajouter un nouveau commentaire </label> :  <input type="text" class="form-control" id="message" name="message"/>
 
-            <input type="submit" value="Envoyer" />
-        </p>
-        </form>
-        </p>
-    </div>
+                <input type="submit" value="Envoyer" class="btn btn-secondary" />
+            </p>
+            </form>
+            </p>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

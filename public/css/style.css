@@ -39,9 +39,26 @@ h3
     display: flex;
     flex-wrap: nowrap;
 }
-.nav{
-    width: 15%;
+.nav-tabs{
+    text-align: center;
 }
 footer{
-    background-color: black;
+    background-color: #B8B8B8;
+}
+
+.comment{
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+}
+.linkSuit{
+    font-style: italic;
+    color : #B8B8B8;
+    margin-right: auto;
+    margin-left: auto;
+}
+.sommaire{
+    border-right: black 1px solid;
+}
+.listInfos{
+    border-left: black 1px solid;
 }
