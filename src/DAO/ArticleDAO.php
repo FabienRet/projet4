@@ -40,7 +40,7 @@ class ArticleDAO extends Database
         return $result;
     }
     public function getTitle(){
-        $sql = 'SELECT title FROM article ORDER BY id';
+        $sql = 'SELECT id, title FROM article ORDER BY id';
         $result = $this->sql($sql);
         return $result;
     }

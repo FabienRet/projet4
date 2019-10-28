@@ -4,7 +4,6 @@
 {% block content %}
     <div class="news">
         <p>Modifier votre commentaire :</p>
-        {{ dump(app.get) }}
         {% for data in comment %}
             <form method="post" action="../public/index.php?route=update_comment&articleId={{ app.get.articleId }}&ID_comment={{ app.get.ID_comment }}" class="newComments">
                 <p>

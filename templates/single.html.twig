@@ -18,7 +18,11 @@
                 <li>
                     <h3>{{ data.name ~ ' le ' ~ data.created_at|date("d/m/Y") }} </h3>
                     <div class="comment">
+                        {% if data.report == 1 %}
+                            <span class="badge badge-danger">Commentaire signalé</span>
+                        {% else %}
                         <p>{{ data.content }}</p>
+                            {% endif %}
                         {% if app.session.name == data.name or app.session.id == 2 %}
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
@@ -48,9 +52,6 @@
                             <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&articleId='~app.get.articleId}}">Modifier</a>
                         {% else %}
                             <a class="btn btn-secondary" href="{{ '../public/index.php?route=report&ID_comment='~data.id~'&articleId='~app.get.articleId}}">Signaler</a>
-                        {% endif %}
-                        {% if data.report == 1 %}
-                            <span class="badge badge-danger">Commentaire signalé</span>
                         {% endif %}
                     </div>
                     </br>

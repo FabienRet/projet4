@@ -2,40 +2,41 @@
 
 namespace App\config;
 
+use App\src\controller\BackController;
 use App\src\controller\FrontController;
 
 class Router{
 
     private $frontController;
+    private $backController;
 
     public function __construct()
     {
         $this->frontController = new FrontController();
+        $this->backController = new BackController();
     }
 
     public function run(){
 		try {
                 if (isset($_GET['route'])) {
                     if ($_GET['route'] == 'add_article') {
-                        $this->frontController->addArticle($_POST);
+                        $this->backController->addArticle($_POST);
                     } else if ($_GET['route'] == 'single') {
                         $this->frontController->article($_GET['articleId']);
                     } else if ($_GET['route'] == 'delete_article') {
-                        $this->frontController->deleteArticle($_GET['article']);
-                    } else if ($_GET['route'] == 'comment') {
-                        $this->frontController->getComment($_GET['article']);
+                        $this->backController->deleteArticle($_GET['articleId']);
                     } else if ($_GET['route'] == 'add_comment') {
-                        $this->frontController->addComment($_GET['articleId'], $_POST);
+                        $this->backController->addComment($_GET['articleId'], $_POST);
                     } else if ($_GET['route'] == 'delete_comment') {
-                        $this->frontController->deleteComment($_GET['ID_comment']);
+                        $this->backController->deleteComment($_GET['ID_comment']);
                     } else if ($_GET['route'] == 'get_article') {
                         $this->frontController->getArticle($_GET['articleId']);
                     }else if($_GET['route'] == 'get_comment'){
                         $this->frontController->comment($_GET['ID_comment']);
                     } else if ($_GET['route'] == 'update_article') {
-                        $this->frontController->updateArticle($_GET['article'], $_POST);
+                        $this->backController->updateArticle($_GET['articleId'], $_POST);
                     } else if ($_GET['route'] == 'update_comment') {
-                        $this->frontController->updatecomment($_GET['ID_comment'], $_POST);
+                        $this->backController->updatecomment($_GET['ID_comment'], $_POST);
                     } else if ($_GET['route'] == 'register') {
                         $this->frontController->register($_POST);
                     } else if ($_GET['route'] == 'login') {
@@ -43,31 +44,31 @@ class Router{
                     } else if ($_GET['route'] == 'logout') {
                         $this->frontController->logout();
                     } else if ($_GET['route'] == 'admin') {
-                        $this->frontController->admin();
+                        $this->backController->admin();
                     } else if ($_GET['route'] == 'member') {
-                        $this->frontController->member($_SESSION['name']);
+                        $this->backController->member($_SESSION['name']);
                     } else if ($_GET['route'] == 'update_member') {
-                        $this->frontController->update_member();
+                        $this->backController->update_member();
                     } else if ($_GET['route'] == 'update') {
-                        $this->frontController->update($_POST);
+                        $this->backController->update($_POST);
                     } else if ($_GET['route'] == 'report') {
-                        $this->frontController->report($_GET['ID_comment'], $_GET['articleId']);
+                        $this->backController->report($_GET['ID_comment'], $_GET['articleId']);
                     } else if ($_GET['route'] == 'reportComment') {
-                        $this->frontController->reportComment();
+                        $this->backController->reportComment();
                     } else if ($_GET['route'] == 'listUser') {
-                        $this->frontController->listUser();
+                        $this->backController->listUser();
                     } else if ($_GET['route'] == 'newName') {
-                        $this->frontController->newName($_POST);
+                        $this->backController->newName($_POST);
                     } else if ($_GET['route'] == 'newMail') {
-                        $this->frontController->newMail($_POST);
+                        $this->backController->newMail($_POST);
                     } else if ($_GET['route'] == 'newPass') {
-                        $this->frontController->newPass($_POST);
+                        $this->backController->newPass($_POST);
                     } else if ($_GET['route'] == 'delete_member') {
-                        $this->frontController->deleteMember();
+                        $this->backController->deleteMember();
                     } else if ($_GET['route'] == 'comment_member') {
-                        $this->frontController->commentMember();
+                        $this->backController->commentMember();
                     } else if ($_GET['route'] == 'validate_comment') {
-                        $this->frontController->validateComment($_GET['ID_comment']);
+                        $this->backController->validateComment($_GET['ID_comment']);
                     } else {
                         echo 'Autre page !';
                     }

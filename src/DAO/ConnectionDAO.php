@@ -95,4 +95,8 @@ Class ConnectionDAO extends Database{
         $newPass = 'UPDATE user SET password = ? WHERE name = ?';
         $dataPass = $this->sql($newPass, [$pass, $_SESSION['name']]);
     }
+    public function hashPass($pass){
+        $newPass = hash('sha512', $pass);
+        return $newPass;
+    }
 }

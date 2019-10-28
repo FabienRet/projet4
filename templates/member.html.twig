@@ -23,21 +23,24 @@
                         <ul>
                             <li>Pseudo : {{ app.session.name }}</li></br>
                             <li>Email : {{ info.email }}</li></br>
-                            <li>Création du compte : {{ info.created_at }}</li></br>
+                            <li>Création du compte : {{ info.created_at|date("d/m/Y") }}</li></br>
                         </ul>
+                        <div class="container">
+                            <div class="row justify-content-center">
                         <a class="btn btn-secondary" href="../public/index.php?route=update_member">Modifier</a>
-                        <div class="list-group-item">
+                        <div>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#userModal">
                                 Supprimer
-                            </button></div>
+                            </button></div></div></div>
+                            </br>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
+                                        <h5 class="modal-title" id="userModalLabel">Suppression</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -59,29 +62,31 @@
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div class="container">
+                <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Créé le</th>
                         <th scope="col">Commentaire</th>
+                        <th scope="col">Créé le</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     {% for data in comment %}
                         <tbody>
-                        <td><h3>{{' le ' ~ data.created_at }} </h3></td>
                         <td><p>{{ data.content }}</p></td>
-                        <td><!-- Button trigger modal -->
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                        <td><p>{{~ data.created_at }} </p></td>
+                        <td> <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&articleId='~data.id_article}}">Modifier</a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#commentModal">
                                 Supprimer
                             </button>
-
+                           </td>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
+                                            <h5 class="modal-title" id="commentModalLabel">Suppression</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -91,15 +96,16 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Supprimer </a>
+                                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=delete_comment&ID_comment='~data.id~'&ID_article='~data.id_article}}">Supprimer </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&ID_article='~app.get.article}}">Modifier</a></td>
+
                         </tbody>
                     {% endfor %}
                 </table>
+            </div>
             </div>
         </div>
             </div>
