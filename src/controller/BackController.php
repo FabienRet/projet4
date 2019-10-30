@@ -46,13 +46,13 @@ class BackController extends Controller
     public function deleteComment($idComment){
         $this->getConnect();
         $this->comment->deleteComment($idComment);
-        header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'');
+        header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'#linkCom');
     }
     public function addComment($idArticle, $post){
         $this->getConnect();
         if(isset($post) && !empty($post)){
             $this->comment->addComment($idArticle, $post['message']);
-            header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'');
+            header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'#linkCom');
         }
     }
     public function updateArticle($idArticle, $post){
@@ -71,7 +71,7 @@ class BackController extends Controller
         $this->getConnect();
         if(isset($post) && !empty($post)) {
             $this->comment->updateComment($idComment, $post['name'], $post['content']);
-            header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'');
+            header('Location: ../public/index.php?route=single&articleId='.$_GET["articleId"].'#linkCom');
         }
     }
     public function update_member(){
@@ -82,7 +82,7 @@ class BackController extends Controller
     public function report($comment, $articleId){
         $this->getConnect();
         $this->comment->reportComment($comment);
-        header('Location: ../public/index.php?route=single&articleId='.$articleId);
+        header('Location: ../public/index.php?route=single&articleId='.$articleId.'#linkCom');
     }
     public function validateComment($comment){
         $this->getAdmin();
