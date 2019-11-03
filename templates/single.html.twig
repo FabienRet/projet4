@@ -21,8 +21,8 @@
                         {% if data.report == 1 %}
                             <span class="badge badge-danger">Commentaire signalé</span>
                         {% else %}
-                        <p>{{ data.content }}</p>
-                            {% endif %}
+                            <p>{{ data.content }}</p>
+                        {% endif %}
                         {% if app.session.name == data.name or app.session.id == 2 %}
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
@@ -63,12 +63,12 @@
         <div class="container">
             <div class="comment">
                 <form method="post" action="../public/index.php?route=add_comment&articleId={{ app.get.articleId }}">
-                <label for="message">Ajouter un nouveau commentaire </label> :  <input type="text" class="form-control" id="message" name="message"/>
+                    <label for="message">Ajouter un nouveau commentaire </label> :  <input type="text" class="form-control" id="message" name="message"/>
 
-                <input type="submit" value="Envoyer" class="btn btn-secondary" />
-            </p>
-            </form>
-            </p>
+                    <input type="submit" value="Envoyer" class="btn btn-secondary" />
+                    </p>
+                </form>
+                </p>
             </div>
         </div>
     {% endif %}

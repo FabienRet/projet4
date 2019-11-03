@@ -3,44 +3,44 @@
 {% block title %}Accueil{% endblock %}
 {% block header %}{{ parent() }}{% endblock %}
 {% block content %}
-</br>
-<!--<h1>Mon super blog !</h1>-->
+    </br>
+    <!--<h1>Mon super blog !</h1>-->
     <div class="container-fluid">
         <div class="row">
-        <div class="col-12 col-lg-2 sommaire">
-        <h2>Sommaire</h2></br>
+            <div class="col-12 col-lg-2 sommaire">
+                <h2>Sommaire</h2></br>
 
-            <ul>
-                {% for data in article %}
-                <li><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></li>
+                <ul>
+                    {% for data in article %}
+                        <li><a href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-12 col-lg-8">
+                <h2>Derniers chapitres</h2></br>
+                {% for data in articles %}
+                    <h2 ><a class="titleArticle" href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
+                    <p class="text-justify ">{{ data.content|striptags[:200] }}{...}</p>
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <a class="btn btn-secondary" href="../public/index.php?route=single&articleId={{ data.id }}">Lire la suite</a></br>
+                            <em><a class="btn btn-secondary" href="{{ '../public/index.php?route=single&articleId='~data.id~'#linkCom'}}">Commentaires <span class="badge badge-light">{{ data.nbComment }}</span></a>
+                            </em>
+                        </div>
+                    </div>
+                    </br>
                 {% endfor %}
-            </ul>
-        </div>
-<div class="col-12 col-lg-8">
-    <h2>Derniers chapitres</h2></br>
-{% for data in articles %}
-    <h2 ><a class="titleArticle" href="../public/index.php?route=single&articleId={{ data.id }}">{{ data.title }}</a></h2>
-    <p class="text-justify ">{{ data.content|striptags[:200] }}{...}</p>
-    <div class="container">
-        <div class="row justify-content-between">
-    <a class="btn btn-secondary" href="../public/index.php?route=single&articleId={{ data.id }}">Lire la suite</a></br>
-    <em><a class="btn btn-secondary" href="{{ '../public/index.php?route=single&articleId='~data.id~'#linkCom'}}">Commentaires <span class="badge badge-light">{{ data.nbComment }}</span></a>
-        </em>
-        </div>
-    </div>
-</br>
-{% endfor %}
-        </div>
+            </div>
 
-    <div class="col-12 col-lg-2 listInfos">
-        <h2>Mes oeuvres</h2>
-        <div class="row justify-content-center">
+            <div class="col-12 col-lg-2 listInfos">
+                <h2>Mes oeuvres</h2>
+                <div class="row justify-content-center">
 
-            <img src="../public/img/livre1.jpg" alt="" class="imgHome">
-            <img src="../public/img/livre2.jpg" alt="" class="imgHome">
-             <img src="../public/img/livre3.jpg" alt="" class="imgHome">
-    </div>
-    </div>
+                    <img src="../public/img/livre1.jpg" alt="" class="imgHome">
+                    <img src="../public/img/livre2.jpg" alt="" class="imgHome">
+                    <img src="../public/img/livre3.jpg" alt="" class="imgHome">
+                </div>
+            </div>
         </div>
     </div>
     </br>

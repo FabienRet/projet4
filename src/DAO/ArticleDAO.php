@@ -1,5 +1,5 @@
 <?php
- namespace App\src\DAO;
+namespace App\src\DAO;
 
 class ArticleDAO extends Database
 {
