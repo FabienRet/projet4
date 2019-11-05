@@ -41,7 +41,7 @@ Class CommentDAO extends Database
         return $comment;
     }
     public function commentMember(){
-        $sql = 'SELECT id, id_article, content, created_at FROM comment WHERE name = ?';
+        $sql = 'SELECT id, id_article, content, created_at, report FROM comment WHERE name = ?';
         $result = $this->sql($sql, [$_SESSION['name']]);
         return $result;
     }

@@ -73,7 +73,11 @@
                         </thead>
                         {% for data in comment %}
                             <tbody>
-                            <td><p>{{ data.content }}</p></td>
+                            <td><p>{{ data.content }}</br>
+                                    {% if data.report == 1 %}
+                                        <span class="badge badge-danger">Commentaire signalé</span>
+                                    {% endif %}
+                                </p></td>
                             <td><p>{{~ data.created_at }} </p></td>
                             <td> <a class="btn btn-secondary" href="{{' ../public/index.php?route=get_comment&ID_comment='~data.id~'&articleId='~data.id_article}}">Modifier</a>
                                 <!-- Button trigger modal -->
