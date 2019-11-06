@@ -7,12 +7,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <form method="post" action="../public/index.php?route=add_article" name="sentMessage" id="contactForm">
+                <form method="post" action="../public/index.php?route=add_new_article" name="sentMessage" id="contactForm">
                     <div class="control-group">
                         <div class="form-group controls">
 
-            <label for="titre">Titre</label> : <input type="text" name="titre" id="pseudo" /><br />
-            <label for="article">Article</label> :  <textarea name="article" id="message" rows="20" ></textarea><br />
+            <label for="titre">Titre</label> : <input type="text" name="titre" id="pseudo" required data-validation-required-message="Entrez un titre" /><br />
+            <label for="article">Article</label> :  <textarea name="article" id="message" rows="20"  ></textarea><br />
 
             <input type="submit" class="btn btn-secondary" value="Envoyer" />
 </div>

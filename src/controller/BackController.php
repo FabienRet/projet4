@@ -30,12 +30,23 @@ class BackController extends Controller
         $infos = $this->connection->infoTab($_SESSION['name']);
         echo $this->twig->render('member.html.twig', ['info' => $info, 'comment'=> $comment, 'infos'=>$infos ]);
     }
-    public function addArticle($post) {
+    public function addNewArticle($post){
         $this->getAdmin();
-        if(isset($post) && !empty($post)){
+        if(empty($post['article'])){
+            $alert = "entrez un texte";
+        }
+        else{
             $this->article->addArticle($post['titre'], $post['article']);
             header ('Location: ../public/index.php');
         }
+        if (!empty($alert)){
+            $this->addArticle();
+            echo "<script>alert('$alert') </script>";
+        }
+
+    }
+    public function addArticle() {
+        $this->getAdmin();
         echo $this->twig->render('article_add.html.twig');
     }
     public function deleteArticle($idArticle){
@@ -87,7 +98,7 @@ class BackController extends Controller
     public function validateComment($comment){
         $this->getAdmin();
         $this->comment->validateComment($comment);
-        header('Location: ../public/index.php?route=reportComment');
+        header('Location: ../public/index.php?route=admin');
     }
 
     public function reportComment(){

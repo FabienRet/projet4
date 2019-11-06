@@ -21,6 +21,8 @@ class Router{
             if (isset($_GET['route'])) {
                 if ($_GET['route'] == 'add_article') {
                     $this->backController->addArticle($_POST);
+                }else if($_GET['route'] == 'add_new_article'){
+                    $this->backController->addNewArticle($_POST);
                 } else if ($_GET['route'] == 'single') {
                     $this->frontController->article($_GET['articleId']);
                 } else if ($_GET['route'] == 'delete_article') {

@@ -8,7 +8,7 @@ class ArticleDAO extends Database
         $sql = 'SELECT b.id, b.title, b.content, b.created_at, (SELECT count(*) FROM comment c WHERE c.id_article=b.id) as nbComment 
                 FROM article b 
                 left join comment c on c.id_article = b.id 
-                group by b.id ORDER BY b.id DESC LIMIT 0, 5 ';
+                group by b.id ORDER BY b.id DESC';
         $result = $this->sql($sql);
         return $result;
     }
